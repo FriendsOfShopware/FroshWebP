@@ -9,7 +9,7 @@
                 {if isset($sArticle.media.thumbnails)}
                     <picture>
                         {if isset($sArticle.media.thumbnails[0].webp)}
-                            <source srcset="{$sArticle.media.thumbnails[0].webp.sourceSet}" media="(min-width: 48em)" type="image/webp">
+                            <source srcset="{$sArticle.media.thumbnails[0].webp.sourceSet}" type="image/webp">
                         {/if}
                         <img srcset="{$sArticle.media.thumbnails[0].sourceSet}"
                              alt="{$sArticle.title|escape}"
