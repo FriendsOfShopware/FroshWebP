@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="thumbnail_generator_basic" class="ShyimWebP\Components\Thumbnail\Generator\WebPGenerator">
+            <argument type="service" id="config"/>
+            <argument type="service" id="shopware_media.media_service"/>
+            <argument type="service" id="shopware_media.optimizer_service"/>
+        </service>
+
+        <service id="shyim_webp.mediahydrator" class="ShyimWebP\Components\MediaHydrator" decorates="shopware_storefront.media_hydrator_dbal" decoration-priority="500">
+            <argument type="service" id="shopware_storefront.attribute_hydrator_dbal"/>
+            <argument type="service" id="thumbnail_manager"/>
+            <argument type="service" id="shopware_media.media_service"/>
+            <argument type="service" id="dbal_connection"/>
+        </service>
+
+        <service id="shyim_webp.subscriber.legacy_struct_converter" class="ShyimWebP\Subscriber\LegacyStructConverterSubscriber">
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="shyim_webp.subscriber.template_subscriber" class="ShyimWebP\Subscriber\TemplateSubscriber">
+            <tag name="shopware.event_subscriber"/>
+        </service>
+    </services>
+</container>
