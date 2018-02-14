@@ -35,5 +35,9 @@
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
             <argument type="string">ShyimWebP</argument>
         </service>
+
+        <service id="shyim_webp.commands.generate_webp" class="ShyimWebP\Commands\GenerateWebpImages">
+            <tag name="console.command"/>
+        </service>
     </services>
 </container>

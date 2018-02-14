@@ -50,10 +50,12 @@ class MediaUploadSubscriber implements SubscriberInterface
 
         ob_start();
 
+        imagepalettetotruecolor($im);
         imagewebp($im, null, 80);
 
         $content = ob_get_contents();
         ob_end_clean();
+        imagedestroy($im);
 
         $this->mediaService->write($webpPath, $content);
     }
