@@ -86,6 +86,10 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
         if (isset($data['__media_path'])) {
             $media->setPath($data['__media_path']);
             $media->setFile($this->mediaService->getUrl($data['__media_path']));
+
+            $media->addAttribute('webp', new Attribute(['image' => $this->mediaService->getUrl(str_replace($data['__media_extension'], 'webp', $data['__media_path']))]));
+            var_dump($media->getAttribute('webp'));
+            die();
         }
 
         /*
