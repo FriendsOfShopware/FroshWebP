@@ -22,7 +22,13 @@
         </service>
 
         <service id="shyim_webp.subscriber.template_subscriber" class="ShyimWebP\Subscriber\TemplateSubscriber">
+            <argument type="service" id="shyim_webp.config"/>
             <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="shyim_webp.config" class="Shopware\Components\Plugin\CachedConfigReader">
+            <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
+            <argument type="string">ShyimWebP</argument>
         </service>
     </services>
 </container>

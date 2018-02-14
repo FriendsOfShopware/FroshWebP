@@ -7,8 +7,17 @@ namespace ShyimWebP\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Action;
 
+/**
+ * Class TemplateSubscriber
+ * @package ShyimWebP\Subscriber
+ */
 class TemplateSubscriber implements SubscriberInterface
 {
+    /**
+     * @var array
+     */
+    private $pluginConfig;
+
     /**
      * @return array
      * @author Soner Sayakci <s.sayakci@gmail.com>
@@ -22,6 +31,15 @@ class TemplateSubscriber implements SubscriberInterface
     }
 
     /**
+     * TemplateSubscriber constructor.
+     * @param array $pluginConfig
+     */
+    public function __construct(array $pluginConfig)
+    {
+        $this->pluginConfig = $pluginConfig;
+    }
+
+    /**
      * @param \Enlight_Event_EventArgs $args
      * @return void
      * @author Soner Sayakci <s.sayakci@gmail.com>
@@ -30,6 +48,10 @@ class TemplateSubscriber implements SubscriberInterface
     {
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->get('subject');
+
+        if (empty($this->pluginConfig['enableWebPInFrontend'])) {
+            return;
+        }
 
         $controller->View()->addTemplateDir(dirname(__DIR__) .  '/Resources/views');
     }
