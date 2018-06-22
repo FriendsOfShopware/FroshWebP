@@ -25,8 +25,8 @@ class TemplateSubscriber implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PostDispatch_Frontend' => 'addTemplateDir',
-            'Enlight_Controller_Action_PostDispatch_Widgets' => 'addTemplateDir',
+            'Enlight_Controller_Action_PreDispatch_Widgets' => 'addTemplateDir',
+            'Enlight_Controller_Action_PreDispatch_Frontend' => 'addTemplateDir'
         ];
     }
 

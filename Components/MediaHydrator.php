@@ -200,8 +200,8 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
 
             $thumbnail->addAttribute('webp', new Attribute([
                 'thumbnail' => new Thumbnail(
-                    $this->mediaService->getUrl(str_replace('.jpg', '.webp', $row['source'])),
-                    $this->mediaService->getUrl(str_replace('.jpg', '.webp', $row['retinaSource'])),
+                    $this->mediaService->getUrl(str_replace($data['__media_extension'], 'webp', $row['source'])),
+                    $this->mediaService->getUrl(str_replace($data['__media_extension'], 'webp', $row['retinaSource'])),
                     $row['maxWidth'],
                     $row['maxHeight']
                 )
