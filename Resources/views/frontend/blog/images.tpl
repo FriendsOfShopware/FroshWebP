@@ -15,8 +15,8 @@
            class="link--blog-image">
 
             <picture>
-                {if isset($sArticle.media.thumbnails[1].webp)}
-                    <source srcset="{$sArticle.media.thumbnails[1].webp.sourceSet}" type="image/webp">
+                {if isset($sArticle.preview.thumbnails[1].webp)}
+                    <source srcset="{$sArticle.preview.thumbnails[1].webp.sourceSet}" type="image/webp">
                 {/if}
                 <img srcset="{$sArticle.preview.thumbnails[1].sourceSet}"
                      src="{$sArticle.preview.thumbnails[1].source}"
