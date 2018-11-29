@@ -15,4 +15,5 @@ This plugin generates additional webp Thumbnails and uses is in various location
 # Installation
 
 * Checkout Plugin in `/custom/plugins/ShyimWebP`
+* Download google binaries if neccessary `php bin/console shyim:webp:download-google-binaries`
 * Generate all Thumbnails new with ``php bin/console sw:thumbnail:generate -f``

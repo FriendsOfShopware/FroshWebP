@@ -8,6 +8,15 @@ use Symfony\Component\Process\Process;
 
 class GoogleBinary implements WebpEncoderInterface
 {
+    /** @var string */
+    private $cachedDownloadDir;
+
+    /** @param string $cachedDownloadDir */
+    public function __construct($cachedDownloadDir)
+    {
+        $this->cachedDownloadDir = $cachedDownloadDir;
+    }
+
     /** {@inheritdoc} */
     public function getName()
     {
@@ -52,6 +61,6 @@ class GoogleBinary implements WebpEncoderInterface
     /** @return string */
     protected function getGoogleWebpConverterPath()
     {
-        return (new ExecutableFinder())->find('cwebp');
+        return (new ExecutableFinder())->find('cwebp', null, [$this->cachedDownloadDir . DIRECTORY_SEPARATOR . 'bin']);
     }
 }
