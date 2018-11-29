@@ -41,11 +41,11 @@
         </service>
 
         <service id="shyim_webp.commands.generate_webp" class="ShyimWebP\Commands\GenerateWebpImages">
-            <tag name="console.command"/>
+            <tag name="console.command" command="shyim:webp:generate"/>
         </service>
 
         <service id="shyim_webp.commands.download_google_binaries" class="ShyimWebP\Commands\DownloadGoogleBinaries">
-            <tag name="console.command"/>
+            <tag name="console.command" command="shyim:webp:download-google-binaries"/>
         </service>
 
         <service id="shyim_webp.services.webp_encoder_factory" class="ShyimWebP\Services\WebpEncoderFactory">
