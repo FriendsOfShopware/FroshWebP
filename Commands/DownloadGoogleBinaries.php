@@ -55,9 +55,8 @@ class DownloadGoogleBinaries extends ShopwareCommand
             return 3;
         }
 
-        $pluginDir = $this->container->getParameter('shyim_web_p.plugin_dir');
         $cacheDownloadDir = $this->container->getParameter('shyim_web_p.cached_download_dir');
-        $downloadDir = $pluginDir . DIRECTORY_SEPARATOR . '.download';
+        $downloadDir = $downloadedPackage . '.d';
         $cwebpPath = $downloadDir . DIRECTORY_SEPARATOR . $packageDirectory . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'cwebp';
         $package = new PharData($downloadedPackage, null, null, Phar::TAR | Phar::GZ);
 
