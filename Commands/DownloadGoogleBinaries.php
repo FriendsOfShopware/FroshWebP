@@ -35,14 +35,11 @@ class DownloadGoogleBinaries extends ShopwareCommand
             return 1;
         }
 
-        $url = '';
         $packageDirectory = '';
 
         if ($this->isLinux()) {
-            $url = 'https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.0.1-linux-x86-64.tar.gz';
             $packageDirectory = 'libwebp-1.0.1-linux-x86-64';
         } else if ($this->isMac()) {
-            $url = 'https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.0.1-mac-10.13.tar.gz';
             $packageDirectory = 'libwebp-1.0.1-mac-10.13';
         } else {
             $style->error('Downloading binaries is supported for linux and mac only');
@@ -50,7 +47,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
         }
 
         $downloadedPackage = tempnam(sys_get_temp_dir(), 'libwebp') . '.tar.gz';
-
+        $url = 'https://storage.googleapis.com/downloads.webmproject.org/releases/webp/' . $packageDirectory . '.tar.gz';
         copy($url, $downloadedPackage);
 
         if (!file_exists($downloadedPackage)) {
@@ -66,6 +63,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
         $this->clearDirectory($downloadDir);
         $package->extractTo($downloadDir);
+        unlink($downloadedPackage);
 
         if (!file_exists($cwebpPath)) {
             $style->error('Downloaded package does not contain a cwebp executable');
