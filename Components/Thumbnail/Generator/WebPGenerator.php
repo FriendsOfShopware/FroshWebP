@@ -95,7 +95,7 @@ class WebPGenerator implements GeneratorInterface
 
         if (!empty($this->webpEncoders)) {
             $webpPath = str_replace($fileExt, 'webp', $destination);
-            $this->mediaService->write($webpPath, $this->webpEncoders[0]->encode($newImage, $quality));
+            $this->mediaService->write($webpPath, current($this->webpEncoders)->encode($newImage, $quality));
             $this->optimizeImage($webpPath);
         }
 

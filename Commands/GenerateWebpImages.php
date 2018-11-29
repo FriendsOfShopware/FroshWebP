@@ -53,7 +53,7 @@ class GenerateWebpImages extends ShopwareCommand
                 }
 
                 imagepalettetotruecolor($im);
-                $content = $runnableEncoders[0]->encode($im, 80);
+                $content = current($runnableEncoders)->encode($im, 80);
                 imagedestroy($im);
                 $this->container->get('shopware_media.media_service')->write($webpPath, $content);
             } catch (\Exception $e) {

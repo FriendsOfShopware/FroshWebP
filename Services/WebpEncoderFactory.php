@@ -27,11 +27,11 @@ class WebpEncoderFactory
      */
     public static function onlyRunnable(array $encoders)
     {
-        return array_values(array_filter(
+        return array_filter(
             $encoders,
             function (WebpEncoderInterface $encoder) {
                 return $encoder->isRunnable();
             }
-        ));
+        );
     }
 }
