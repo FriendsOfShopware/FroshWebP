@@ -48,5 +48,9 @@
         <service id="shyim_webp.services.webp_encoders.php_gd" class="ShyimWebP\Services\WebpEncoders\PhpGd">
             <tag name="shyim_webp.webp_encoder" priority="100" />
         </service>
+
+        <service id="shyim_webp.services.webp_encoders.google_binary" class="ShyimWebP\Services\WebpEncoders\GoogleBinary">
+            <tag name="shyim_webp.webp_encoder" priority="200" />
+        </service>
     </services>
 </container>
