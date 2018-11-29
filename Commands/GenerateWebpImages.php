@@ -47,6 +47,11 @@ class GenerateWebpImages extends ShopwareCommand
 
             try {
                 $im = imagecreatefromstring($this->container->get('shopware_media.media_service')->read($item['path']));
+
+                if ($im === false) {
+                    throw new \Exception('Could not load image');
+                }
+
                 imagepalettetotruecolor($im);
                 $content = $runnableEncoders[0]->encode($im, 80);
                 imagedestroy($im);
