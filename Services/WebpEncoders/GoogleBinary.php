@@ -30,6 +30,7 @@ class GoogleBinary implements WebpEncoderInterface
         $dst = $src . '-dst';
 
         try {
+            imagesavealpha($image, true);
             imagepng($image, $src, 0);
             $process = new Process([
                 $this->getGoogleWebpConverterPath(),
