@@ -2,7 +2,7 @@
 
 namespace ShyimWebP\Services;
 
-use IteratorAggregate;
+use Doctrine\Common\Collections\ArrayCollection;
 use ShyimWebP\Components\WebpEncoderInterface;
 
 class WebpEncoderFactory
@@ -10,9 +10,9 @@ class WebpEncoderFactory
     /** @var WebpEncoderInterface[] */
     private $encoders;
 
-    public function __construct(IteratorAggregate $encoders)
+    public function __construct(ArrayCollection $encoders)
     {
-        $this->encoders = iterator_to_array($encoders);
+        $this->encoders = $encoders->toArray();
     }
 
     /** @return WebpEncoderInterface[] */

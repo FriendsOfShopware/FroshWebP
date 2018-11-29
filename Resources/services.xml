@@ -48,8 +48,12 @@
             <tag name="console.command" command="shyim:webp:download-google-binaries"/>
         </service>
 
+        <service id="shyim_webp.collections.webp_encoders" class="Doctrine\Common\Collections\ArrayCollection">
+            <argument type="collection"/>
+        </service>
+
         <service id="shyim_webp.services.webp_encoder_factory" class="ShyimWebP\Services\WebpEncoderFactory">
-            <argument type="tagged" tag="shyim_webp.webp_encoder"/>
+            <argument type="service" id="shyim_webp.collections.webp_encoders"/>
         </service>
 
         <service id="shyim_webp.services.webp_encoders.php_gd" class="ShyimWebP\Services\WebpEncoders\PhpGd">
