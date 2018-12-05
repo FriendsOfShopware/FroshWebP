@@ -1,18 +1,25 @@
 <?php
 
-
 namespace ShyimWebP;
 
-
+use Shopware\Components\DependencyInjection\Compiler\TagReplaceTrait;
 use Shopware\Components\Plugin;
-use Shopware\Components\Plugin\Context\InstallContext;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ShyimWebP extends Plugin
 {
-    public function install(InstallContext $context)
+    use TagReplaceTrait;
+
+    /** {@inheritdoc} */
+    public function build(ContainerBuilder $builder)
     {
-        if (!function_exists('imagewebp')) {
-            throw new \RuntimeException('GD is installed without webp support');
-        }
+        parent::build($builder);
+
+        $this->replaceArgumentWithTaggedService(
+            $builder,
+            'shyim_webp.collections.webp_encoders',
+            'shyim_webp.webp_encoder',
+            0
+        );
     }
 }

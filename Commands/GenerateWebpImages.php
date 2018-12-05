@@ -3,6 +3,7 @@
 namespace ShyimWebP\Commands;
 
 use Shopware\Commands\ShopwareCommand;
+use ShyimWebP\Services\WebpEncoderFactory;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,6 +28,15 @@ class GenerateWebpImages extends ShopwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var WebpEncoderFactory $encoderFactory */
+        $encoderFactory = $this->container->get('shyim_webp.services.webp_encoder_factory');
+        $runnableEncoders = WebpEncoderFactory::onlyRunnable($encoderFactory->getEncoders());
+
+        if (empty($runnableEncoders)) {
+            $output->writeln('No suitable encoders found');
+            return;
+        }
+
         $media = $this->container->get('dbal_connection')->fetchAll('SELECT * FROM s_media');
 
         $progress = new ProgressBar($output, count($media));
@@ -38,17 +48,14 @@ class GenerateWebpImages extends ShopwareCommand
             try {
                 $im = imagecreatefromstring($this->container->get('shopware_media.media_service')->read($item['path']));
 
-                ob_start();
+                if ($im === false) {
+                    throw new \Exception('Could not load image');
+                }
 
                 imagepalettetotruecolor($im);
-                imagewebp($im, null, 80);
-
-                $content = ob_get_contents();
-                ob_end_clean();
+                $content = current($runnableEncoders)->encode($im, 80);
                 imagedestroy($im);
-
                 $this->container->get('shopware_media.media_service')->write($webpPath, $content);
-
             } catch (\Exception $e) {
                 $output->writeln($item['path'] . ' => ' . $e->getMessage());
             } catch (\Throwable $e) {
