@@ -15,7 +15,7 @@ class ShyimWebP extends Plugin
     {
         parent::build($builder);
 
-        $this->replaceArgumentWithTaggedService(
+        $this->replaceArgumentWithTaggedServices(
             $builder,
             'shyim_webp.collections.webp_encoders',
             'shyim_webp.webp_encoder',
