@@ -3,14 +3,14 @@
 namespace ShyimWebP\Commands;
 
 use Shopware\Commands\ShopwareCommand;
+use Shopware\Models\Media\Media;
 use ShyimWebP\Services\WebpEncoderFactory;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class GenerateWebpImages
- * @package ShyimWebP\Commands
+ * Class GenerateWebpImages.
  */
 class GenerateWebpImages extends ShopwareCommand
 {
@@ -22,8 +22,9 @@ class GenerateWebpImages extends ShopwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int|null|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -34,21 +35,24 @@ class GenerateWebpImages extends ShopwareCommand
 
         if (empty($runnableEncoders)) {
             $output->writeln('No suitable encoders found');
+
             return;
         }
 
-        $media = $this->container->get('dbal_connection')->fetchAll('SELECT * FROM s_media');
+        $media = Shopware()->Container()->get('models')->getRepository(Media::class)->findBy([
+            'type' => 'IMAGE',
+        ]);
 
         $progress = new ProgressBar($output, count($media));
         $progress->start();
 
         foreach ($media as $item) {
-            $webpPath = str_replace($item['extension'], 'webp', $item['path']);
+            $webpPath = str_replace($item->getExtension(), 'webp', $item->getPath());
 
             try {
-                $im = imagecreatefromstring($this->container->get('shopware_media.media_service')->read($item['path']));
+                $im = imagecreatefromstring($this->container->get('shopware_media.media_service')->read($item->getPath()));
 
-                if ($im === false) {
+                if (false === $im) {
                     throw new \Exception('Could not load image');
                 }
 
@@ -57,9 +61,9 @@ class GenerateWebpImages extends ShopwareCommand
                 imagedestroy($im);
                 $this->container->get('shopware_media.media_service')->write($webpPath, $content);
             } catch (\Exception $e) {
-                $output->writeln($item['path'] . ' => ' . $e->getMessage());
+                $output->writeln($item->getPath().' => '.$e->getMessage());
             } catch (\Throwable $e) {
-                $output->writeln($item['path'] . ' => ' . $e->getMessage());
+                $output->writeln($item->getPath().' => '.$e->getMessage());
             }
 
             $progress->advance();
