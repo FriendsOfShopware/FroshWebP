@@ -32,6 +32,7 @@
 
         <service id="shyim_webp.subscriber.media_upload" class="ShyimWebP\Subscriber\MediaUploadSubscriber">
             <argument type="service" id="shopware_media.media_service"/>
+            <argument type="service" id="shyim_webp.services.webp_encoder_factory"/>
             <tag name="shopware.event_subscriber"/>
         </service>
 
