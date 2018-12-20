@@ -28,7 +28,7 @@ This plugin generates additional webp Thumbnails and uses is in various location
 
 ## Install with composer
 * Change to your root Installation of shopware
-* Run command `composer require frosh/web` and install and active plugin with Plugin Manager 
+* Run command `composer require frosh/webp` and install and active plugin with Plugin Manager 
 
 ## After Installation
 * Download google binaries if neccessary `php bin/console frosh:webp:download-google-binaries`
