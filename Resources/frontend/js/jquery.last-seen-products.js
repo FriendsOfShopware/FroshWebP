@@ -2,7 +2,7 @@ $.subscribe('plugin/swLastSeenProducts/onCreateProductImage', function (_, _, el
     if (data.images[0].sourceSetWebP) {
         var imageElement = element.find('.image--element');
         var content = imageElement.find('.image--media').html();
-        var webPTag = '<source srcset="' + data.images[0].sourceSetWebP + '" type="image/webp">';
+        var webPTag = '<source srcset="' + data.images[0].sourceSetWebP + '" data-srcset="' + data.images[0].sourceSetWebP + '" type="image/webp">';
 
         content = '<picture>' + webPTag + content + '</picture>';
 
