@@ -6,6 +6,7 @@ use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
 use Shopware\Models\Media\Media;
+use ShyimWebP\Services\WebpEncoderFactory;
 
 /**
  * Class MediaUploadSubscriber
@@ -17,6 +18,11 @@ class MediaUploadSubscriber implements SubscriberInterface
      * @var MediaServiceInterface
      */
     private $mediaService;
+    
+    /**
+     * @var WebpEncoderFactory
+     */
+    private $encoderFactory;
 
     /**
      * @return array
@@ -31,10 +37,12 @@ class MediaUploadSubscriber implements SubscriberInterface
     /**
      * MediaUploadSubscriber constructor.
      * @param MediaServiceInterface $mediaService
+     * @param WebpEncoderFactory    $encoderFactory
      */
-    public function __construct(MediaServiceInterface $mediaService)
+    public function __construct(MediaServiceInterface $mediaService, WebpEncoderFactory $encoderFactory)
     {
         $this->mediaService = $mediaService;
+        $this->encoderFactory = $encoderFactory;
     }
 
     /**
@@ -42,21 +50,19 @@ class MediaUploadSubscriber implements SubscriberInterface
      */
     public function onFileUploaded(Enlight_Event_EventArgs $args)
     {
-        /** @var \Shopware\Models\Media\Media $media */
-        $media = $args->get('entity');
+        $runnableEncoders = WebpEncoderFactory::onlyRunnable($this->encoderFactory->getEncoders());
+        
+        if (($encoder = current($runnableEncoders)) !== false) {
+            /** @var \Shopware\Models\Media\Media $media */
+            $media = $args->get('entity');
 
-        $webpPath = str_replace($media->getExtension(), 'webp', $media->getPath());
-        $im = imagecreatefromstring($this->mediaService->read($media->getPath()));
-
-        ob_start();
-
-        imagepalettetotruecolor($im);
-        imagewebp($im, null, 80);
-
-        $content = ob_get_contents();
-        ob_end_clean();
-        imagedestroy($im);
-
-        $this->mediaService->write($webpPath, $content);
+            $webpPath = str_replace($media->getExtension(), 'webp', $media->getPath());
+            $im = imagecreatefromstring($this->mediaService->read($media->getPath()));
+            imagepalettetotruecolor($im);
+            $content = $encoder->encode($im, 80);
+            imagedestroy($im);
+            
+            $this->mediaService->write($webpPath, $content);
+        }        
     }
 }
