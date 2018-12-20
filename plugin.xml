@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
-    <label lang="de">ShyimWebP</label>
-    <label lang="en">ShyimWebP</label>
-    <version>0.1.2</version>
-    <copyright>Shyim</copyright>
+    <label lang="de">FroshWebP</label>
+    <label lang="en">FroshWebP</label>
+    <version>1.0.0</version>
+    <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
-    <link>https://github.com/shyim/ShyimWebP</link>
-    <author>Shyim</author>
+    <link>https://friendsofshopware.github.io/</link>
+    <author>Friends of Shopware</author>
 </plugin>

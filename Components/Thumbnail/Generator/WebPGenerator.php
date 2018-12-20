@@ -1,13 +1,13 @@
 <?php
 
-namespace ShyimWebP\Components\Thumbnail\Generator;
+namespace FroshWebP\Components\Thumbnail\Generator;
 
 use Shopware\Bundle\MediaBundle\Exception\OptimizerNotFoundException;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
 use Shopware\Bundle\MediaBundle\OptimizerServiceInterface;
 use Shopware\Components\Thumbnail\Generator\GeneratorInterface;
-use ShyimWebP\Components\WebpEncoderInterface;
-use ShyimWebP\Services\WebpEncoderFactory;
+use FroshWebP\Components\WebpEncoderInterface;
+use FroshWebP\Services\WebpEncoderFactory;
 
 class WebPGenerator implements GeneratorInterface
 {

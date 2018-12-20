@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimWebP\Subscriber;
+namespace FroshWebP\Subscriber;
 
 
 use Enlight\Event\SubscriberInterface;

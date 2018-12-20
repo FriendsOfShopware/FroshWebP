@@ -7,62 +7,62 @@
         <parameter key="shyim_web_p.cached_download_dir">%kernel.root_dir%/var/libwebp</parameter>
     </parameters>
     <services>
-        <service id="thumbnail_generator_basic" class="ShyimWebP\Components\Thumbnail\Generator\WebPGenerator">
+        <service id="thumbnail_generator_basic" class="FroshWebP\Components\Thumbnail\Generator\WebPGenerator">
             <argument type="service" id="config"/>
             <argument type="service" id="shopware_media.media_service"/>
             <argument type="service" id="shopware_media.optimizer_service"/>
-            <argument type="service" id="shyim_webp.services.webp_encoder_factory"/>
+            <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
         </service>
 
-        <service id="shyim_webp.mediahydrator" class="ShyimWebP\Components\MediaHydrator" decorates="shopware_storefront.media_hydrator_dbal" decoration-priority="500">
+        <service id="frosh_webp.mediahydrator" class="FroshWebP\Components\MediaHydrator" decorates="shopware_storefront.media_hydrator_dbal" decoration-priority="500">
             <argument type="service" id="shopware_storefront.attribute_hydrator_dbal"/>
             <argument type="service" id="thumbnail_manager"/>
             <argument type="service" id="shopware_media.media_service"/>
             <argument type="service" id="dbal_connection"/>
         </service>
 
-        <service id="shyim_webp.subscriber.legacy_struct_converter" class="ShyimWebP\Subscriber\LegacyStructConverterSubscriber">
+        <service id="frosh_webp.subscriber.legacy_struct_converter" class="FroshWebP\Subscriber\LegacyStructConverterSubscriber">
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_webp.subscriber.template_subscriber" class="ShyimWebP\Subscriber\TemplateSubscriber">
-            <argument type="service" id="shyim_webp.config"/>
+        <service id="frosh_webp.subscriber.template_subscriber" class="FroshWebP\Subscriber\TemplateSubscriber">
+            <argument type="service" id="frosh_webp.config"/>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_webp.subscriber.media_upload" class="ShyimWebP\Subscriber\MediaUploadSubscriber">
+        <service id="frosh_webp.subscriber.media_upload" class="FroshWebP\Subscriber\MediaUploadSubscriber">
             <argument type="service" id="shopware_media.media_service"/>
-            <argument type="service" id="shyim_webp.services.webp_encoder_factory"/>
+            <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="shyim_webp.config" class="Shopware\Components\Plugin\CachedConfigReader">
+        <service id="frosh_webp.config" class="Shopware\Components\Plugin\CachedConfigReader">
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
-            <argument type="string">ShyimWebP</argument>
+            <argument type="string">FroshWebP</argument>
         </service>
 
-        <service id="shyim_webp.commands.generate_webp" class="ShyimWebP\Commands\GenerateWebpImages">
-            <tag name="console.command" command="shyim:webp:generate"/>
+        <service id="frosh_webp.commands.generate_webp" class="FroshWebP\Commands\GenerateWebpImages">
+            <tag name="console.command" command="frosh:webp:generate"/>
         </service>
 
-        <service id="shyim_webp.commands.download_google_binaries" class="ShyimWebP\Commands\DownloadGoogleBinaries">
-            <tag name="console.command" command="shyim:webp:download-google-binaries"/>
+        <service id="frosh_webp.commands.download_google_binaries" class="FroshWebP\Commands\DownloadGoogleBinaries">
+            <tag name="console.command" command="frosh:webp:download-google-binaries"/>
         </service>
 
-        <service id="shyim_webp.collections.webp_encoders" class="Doctrine\Common\Collections\ArrayCollection">
+        <service id="frosh_webp.collections.webp_encoders" class="Doctrine\Common\Collections\ArrayCollection">
             <argument type="collection"/>
         </service>
 
-        <service id="shyim_webp.services.webp_encoder_factory" class="ShyimWebP\Services\WebpEncoderFactory">
-            <argument type="service" id="shyim_webp.collections.webp_encoders"/>
+        <service id="frosh_webp.services.webp_encoder_factory" class="FroshWebP\Services\WebpEncoderFactory">
+            <argument type="service" id="frosh_webp.collections.webp_encoders"/>
         </service>
 
-        <service id="shyim_webp.services.webp_encoders.php_gd" class="ShyimWebP\Services\WebpEncoders\PhpGd">
-            <tag name="shyim_webp.webp_encoder" priority="100" />
+        <service id="frosh_webp.services.webp_encoders.php_gd" class="FroshWebP\Services\WebpEncoders\PhpGd">
+            <tag name="frosh_webp.webp_encoder" priority="100" />
         </service>
 
-        <service id="shyim_webp.services.webp_encoders.google_binary" class="ShyimWebP\Services\WebpEncoders\GoogleBinary">
-            <tag name="shyim_webp.webp_encoder" priority="200" />
+        <service id="frosh_webp.services.webp_encoders.google_binary" class="FroshWebP\Services\WebpEncoders\GoogleBinary">
+            <tag name="frosh_webp.webp_encoder" priority="200" />
             <argument type="string">%shyim_web_p.cached_download_dir%</argument>
         </service>
     </services>

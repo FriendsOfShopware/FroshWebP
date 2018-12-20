@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimWebP\Commands;
+namespace FroshWebP\Commands;
 
 use Phar;
 use PharData;
@@ -16,7 +16,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
     protected function configure()
     {
         $this
-            ->setName('shyim:webp:download-google-binaries')
+            ->setName('frosh:webp:download-google-binaries')
             ->setDescription('Downloads google binaries that can convert images to webp')
         ;
     }
@@ -34,8 +34,6 @@ class DownloadGoogleBinaries extends ShopwareCommand
             $style->error('There are no binaries for non-64-bit systems');
             return 1;
         }
-
-        $packageDirectory = '';
 
         if ($this->isLinux()) {
             $packageDirectory = 'libwebp-1.0.1-linux-x86-64';

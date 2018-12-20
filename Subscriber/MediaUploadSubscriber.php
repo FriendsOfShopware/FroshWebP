@@ -1,16 +1,16 @@
 <?php
 
-namespace ShyimWebP\Subscriber;
+namespace FroshWebP\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
 use Shopware\Models\Media\Media;
-use ShyimWebP\Services\WebpEncoderFactory;
+use FroshWebP\Services\WebpEncoderFactory;
 
 /**
  * Class MediaUploadSubscriber
- * @package ShyimWebP\Subscriber
+ * @package FroshWebP\Subscriber
  */
 class MediaUploadSubscriber implements SubscriberInterface
 {

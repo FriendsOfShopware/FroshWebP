@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimWebP\Components;
+namespace FroshWebP\Components;
 
 interface WebpEncoderInterface
 {

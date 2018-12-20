@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ShyimWebP\Subscriber;
+namespace FroshWebP\Subscriber;
 
 
 use Enlight\Event\SubscriberInterface;
@@ -9,7 +9,7 @@ use Enlight_Controller_Action;
 
 /**
  * Class TemplateSubscriber
- * @package ShyimWebP\Subscriber
+ * @package FroshWebP\Subscriber
  */
 class TemplateSubscriber implements SubscriberInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ShyimWebP\Components;
+namespace FroshWebP\Components;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
@@ -13,7 +13,7 @@ use Shopware\Components\Thumbnail\Manager;
 
 /**
  * Class MediaHydrator
- * @package ShyimWebP\Components
+ * @package FroshWebP\Components
  * @author Soner Sayakci <s.sayakci@gmail.com>
  */
 class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydrator\MediaHydrator
