@@ -13,9 +13,23 @@ This plugin generates additional webp Thumbnails and uses is in various location
 * any webp encoder
   * php-gd with webp support
   * cwebp executable in PATH
-
+  
 # Installation
 
+## Zip Installation package for the Shopware Plugin Manager
+
+* Download the [latest plugin version](https://github.com/FriendsOfShopware/FroshWebP/releases/latest/) (e.g. `FroshWebP-1.0.0.zip`)
+* Upload and install plugin using Plugin Manager
+
+## Git Version
 * Checkout Plugin in `/custom/plugins/FroshWebP`
+* Change to Directory and run `composer install` to install the dependencies
+* Install the Plugin with the Plugin Manager
+
+## Install with composer
+* Change to your root Installation of shopware
+* Run command `composer require frosh/web` and install and active plugin with Plugin Manager 
+
+## After Installation
 * Download google binaries if neccessary `php bin/console frosh:webp:download-google-binaries`
 * Generate all Thumbnails new with ``php bin/console sw:thumbnail:generate -f``
