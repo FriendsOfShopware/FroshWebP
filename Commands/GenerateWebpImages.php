@@ -1,13 +1,15 @@
 <?php
+
 namespace FroshWebP\Commands;
-use Shopware\Commands\ShopwareCommand;
+
 use FroshWebP\Services\WebpEncoderFactory;
+use Shopware\Commands\ShopwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * Class GenerateWebpImages
- * @package FroshWebP\Commands
  */
 class GenerateWebpImages extends ShopwareCommand
 {
@@ -17,9 +19,11 @@ class GenerateWebpImages extends ShopwareCommand
             ->setName('frosh:webp:generate')
             ->setDescription('Generate webp images for all orginal images');
     }
+
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int|null|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -29,6 +33,7 @@ class GenerateWebpImages extends ShopwareCommand
         $runnableEncoders = WebpEncoderFactory::onlyRunnable($encoderFactory->getEncoders());
         if (empty($runnableEncoders)) {
             $output->writeln('No suitable encoders found');
+
             return;
         }
         $media = $this->container->get('dbal_connection')->fetchAll('SELECT * FROM s_media WHERE type = "IMAGE"');

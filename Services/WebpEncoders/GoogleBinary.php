@@ -41,6 +41,7 @@ class GoogleBinary implements WebpEncoderInterface
                 $dst,
             ]);
             $process->run();
+
             return file_get_contents($dst);
         } finally {
             if (file_exists($src)) {

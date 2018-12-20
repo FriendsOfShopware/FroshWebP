@@ -23,6 +23,7 @@ class WebpEncoderFactory
 
     /**
      * @param WebpEncoderInterface[] $encoders
+     *
      * @return WebpEncoderInterface[]
      */
     public static function onlyRunnable(array $encoders)
