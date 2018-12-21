@@ -1,8 +1,8 @@
 <?php
 
-namespace ShyimWebP\Services\WebpEncoders;
+namespace FroshWebP\Services\WebpEncoders;
 
-use ShyimWebP\Components\WebpEncoderInterface;
+use FroshWebP\Components\WebpEncoderInterface;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
@@ -41,6 +41,7 @@ class GoogleBinary implements WebpEncoderInterface
                 $dst,
             ]);
             $process->run();
+
             return file_get_contents($dst);
         } finally {
             if (file_exists($src)) {

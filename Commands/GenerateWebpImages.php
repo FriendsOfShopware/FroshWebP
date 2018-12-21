@@ -1,34 +1,39 @@
 <?php
-namespace ShyimWebP\Commands;
+
+namespace FroshWebP\Commands;
+
+use FroshWebP\Services\WebpEncoderFactory;
 use Shopware\Commands\ShopwareCommand;
-use ShyimWebP\Services\WebpEncoderFactory;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * Class GenerateWebpImages
- * @package ShyimWebP\Commands
  */
 class GenerateWebpImages extends ShopwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('shyim:webp:generate')
+            ->setName('frosh:webp:generate')
             ->setDescription('Generate webp images for all orginal images');
     }
+
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int|null|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var WebpEncoderFactory $encoderFactory */
-        $encoderFactory = $this->container->get('shyim_webp.services.webp_encoder_factory');
+        $encoderFactory = $this->container->get('frosh_webp.services.webp_encoder_factory');
         $runnableEncoders = WebpEncoderFactory::onlyRunnable($encoderFactory->getEncoders());
         if (empty($runnableEncoders)) {
             $output->writeln('No suitable encoders found');
+
             return;
         }
         $media = $this->container->get('dbal_connection')->fetchAll('SELECT * FROM s_media WHERE type = "IMAGE"');

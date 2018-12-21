@@ -1,12 +1,12 @@
 <?php
 
-namespace ShyimWebP;
+namespace FroshWebP;
 
 use Shopware\Components\DependencyInjection\Compiler\TagReplaceTrait;
 use Shopware\Components\Plugin;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class ShyimWebP extends Plugin
+class FroshWebP extends Plugin
 {
     use TagReplaceTrait;
 
@@ -17,8 +17,8 @@ class ShyimWebP extends Plugin
 
         $this->replaceArgumentWithTaggedServices(
             $builder,
-            'shyim_webp.collections.webp_encoders',
-            'shyim_webp.webp_encoder',
+            'frosh_webp.collections.webp_encoders',
+            'frosh_webp.webp_encoder',
             0
         );
     }

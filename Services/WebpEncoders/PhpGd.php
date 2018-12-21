@@ -1,8 +1,8 @@
 <?php
 
-namespace ShyimWebP\Services\WebpEncoders;
+namespace FroshWebP\Services\WebpEncoders;
 
-use ShyimWebP\Components\WebpEncoderInterface;
+use FroshWebP\Components\WebpEncoderInterface;
 
 class PhpGd implements WebpEncoderInterface
 {

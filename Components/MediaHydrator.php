@@ -1,7 +1,6 @@
 <?php
 
-
-namespace ShyimWebP\Components;
+namespace FroshWebP\Components;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
@@ -13,7 +12,7 @@ use Shopware\Components\Thumbnail\Manager;
 
 /**
  * Class MediaHydrator
- * @package ShyimWebP\Components
+ *
  * @author Soner Sayakci <s.sayakci@gmail.com>
  */
 class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydrator\MediaHydrator
@@ -54,6 +53,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
 
     /**
      * @param array $data
+     *
      * @return Media
      */
     public function hydrate(array $data)
@@ -143,7 +143,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
 
     /**
      * @param Media $media
-     * @param array        $data
+     * @param array $data
      *
      * @return bool
      */
@@ -204,9 +204,8 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
                     $retina === null ? null : $this->mediaService->getUrl(str_replace($data['__media_extension'], 'webp', $row['retinaSource'])),
                     $row['maxWidth'],
                     $row['maxHeight']
-                )
+                ),
             ]));
-
 
             $thumbnails[] = $thumbnail;
         }

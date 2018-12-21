@@ -1,6 +1,6 @@
 <?php
 
-namespace ShyimWebP\Commands;
+namespace FroshWebP\Commands;
 
 use Phar;
 use PharData;
@@ -16,14 +16,15 @@ class DownloadGoogleBinaries extends ShopwareCommand
     protected function configure()
     {
         $this
-            ->setName('shyim:webp:download-google-binaries')
+            ->setName('frosh:webp:download-google-binaries')
             ->setDescription('Downloads google binaries that can convert images to webp')
         ;
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -32,17 +33,17 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
         if (!$this->is64bit()) {
             $style->error('There are no binaries for non-64-bit systems');
+
             return 1;
         }
 
-        $packageDirectory = '';
-
         if ($this->isLinux()) {
             $packageDirectory = 'libwebp-1.0.1-linux-x86-64';
-        } else if ($this->isMac()) {
+        } elseif ($this->isMac()) {
             $packageDirectory = 'libwebp-1.0.1-mac-10.13';
         } else {
             $style->error('Downloading binaries is supported for linux and mac only');
+
             return 2;
         }
 
@@ -52,6 +53,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
         if (!file_exists($downloadedPackage)) {
             $style->error('Downloading package failed');
+
             return 3;
         }
 
@@ -66,6 +68,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
         if (!file_exists($cwebpPath)) {
             $style->error('Downloaded package does not contain a cwebp executable');
+
             return 4;
         }
 
@@ -98,7 +101,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
             $files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
 
             foreach ($files as $file) {
-                if ($file->isDir()){
+                if ($file->isDir()) {
                     rmdir($file->getRealPath());
                 } else {
                     unlink($file->getRealPath());

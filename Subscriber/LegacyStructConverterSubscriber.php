@@ -1,7 +1,6 @@
 <?php
 
-namespace ShyimWebP\Subscriber;
-
+namespace FroshWebP\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
@@ -11,18 +10,19 @@ class LegacyStructConverterSubscriber implements SubscriberInterface
 {
     /**
      * @return array
+     *
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public static function getSubscribedEvents()
     {
         return [
-            'Legacy_Struct_Converter_Convert_Media' => 'onConvertMedia'
+            'Legacy_Struct_Converter_Convert_Media' => 'onConvertMedia',
         ];
     }
 
     /**
      * @param Enlight_Event_EventArgs $args
-     * @return void
+     *
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
     public function onConvertMedia(Enlight_Event_EventArgs $args)
@@ -50,6 +50,7 @@ class LegacyStructConverterSubscriber implements SubscriberInterface
 
     /**
      * @param Thumbnail $thumbnail
+     *
      * @return string
      */
     private function getSourceSet(Thumbnail $thumbnail)

@@ -1,9 +1,9 @@
 <?php
 
-namespace ShyimWebP\Services;
+namespace FroshWebP\Services;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use ShyimWebP\Components\WebpEncoderInterface;
+use FroshWebP\Components\WebpEncoderInterface;
 
 class WebpEncoderFactory
 {
@@ -23,6 +23,7 @@ class WebpEncoderFactory
 
     /**
      * @param WebpEncoderInterface[] $encoders
+     *
      * @return WebpEncoderInterface[]
      */
     public static function onlyRunnable(array $encoders)
