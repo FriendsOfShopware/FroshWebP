@@ -35,7 +35,7 @@ This plugin generates additional webp Thumbnails and uses is in various location
 * Generate all Thumbnails new with ``php bin/console sw:thumbnail:generate -f``
 
 
-# Compatibility to LazyLoading Plugin available on Community-Store
+## Compatibility to LazyLoading Plugin available on Community-Store
 With small changes this Plugin is compatible with LazyLoader https://store.shopware.com/ies6685271780164/lazy-loading.html
 
 * Make change to custom/plugins/IesLazyLoading/Resources/views/frontend/listingproduct-box/box-big-image.tpl 
