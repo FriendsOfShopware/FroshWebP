@@ -57,7 +57,7 @@ class GoogleBinary implements WebpEncoderInterface
     /** {@inheritdoc} */
     public function isRunnable()
     {
-        return !is_null($this->getGoogleWebpConverterPath());
+        return $this->getGoogleWebpConverterPath() !== null;
     }
 
     /** @return string */

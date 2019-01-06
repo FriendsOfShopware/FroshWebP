@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.4/engine/Shopware/Components/Plugin/schema/config.xsd">
     <elements>
         <element type="boolean">
             <name>enableWebPInFrontend</name>
             <label lang="de">WebP in Frontend anzeigen</label>
             <label lang="en">WebP in Frontend anzeigen</label>
             <value>true</value>
+        </element>
+        <element type="number">
+            <name>webPQuality</name>
+            <label lang="de">WebP Quality</label>
+            <label lang="en">WebP Quality</label>
+            <value>80</value>
         </element>
     </elements>
 </config>

@@ -47,7 +47,7 @@ class GenerateWebpImages extends ShopwareCommand
                     throw new \Exception('Could not load image');
                 }
                 imagepalettetotruecolor($im);
-                $content = current($runnableEncoders)->encode($im, 80);
+                $content = current($runnableEncoders)->encode($im, $this->container->get('frosh_webp.config')['webPQuality']);
                 imagedestroy($im);
                 $this->container->get('shopware_media.media_service')->write($webpPath, $content);
             } catch (\Exception $e) {

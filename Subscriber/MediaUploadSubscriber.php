@@ -22,17 +22,23 @@ class MediaUploadSubscriber implements SubscriberInterface
      * @var WebpEncoderFactory
      */
     private $encoderFactory;
+    /**
+     * @var array
+     */
+    private $config;
 
     /**
      * MediaUploadSubscriber constructor.
      *
      * @param MediaServiceInterface $mediaService
      * @param WebpEncoderFactory    $encoderFactory
+     * @param array                 $config
      */
-    public function __construct(MediaServiceInterface $mediaService, WebpEncoderFactory $encoderFactory)
+    public function __construct(MediaServiceInterface $mediaService, WebpEncoderFactory $encoderFactory, array $config)
     {
         $this->mediaService = $mediaService;
         $this->encoderFactory = $encoderFactory;
+        $this->config = $config;
     }
 
     /**
@@ -59,7 +65,7 @@ class MediaUploadSubscriber implements SubscriberInterface
             $webpPath = str_replace($media->getExtension(), 'webp', $media->getPath());
             $im = imagecreatefromstring($this->mediaService->read($media->getPath()));
             imagepalettetotruecolor($im);
-            $content = $encoder->encode($im, 80);
+            $content = $encoder->encode($im, $this->config['webPQuality']);
             imagedestroy($im);
 
             $this->mediaService->write($webpPath, $content);
