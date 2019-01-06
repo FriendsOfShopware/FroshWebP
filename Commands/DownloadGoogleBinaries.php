@@ -47,7 +47,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
             return 2;
         }
 
-        $downloadedPackage = tempnam(sys_get_temp_dir(), 'libwebp') . '.tar.gz';
+        $downloadedPackage = tempnam($this->container->getParameter('kernel.cache_dir'), 'libwebp') . '.tar.gz';
         $url = 'https://storage.googleapis.com/downloads.webmproject.org/releases/webp/' . $packageDirectory . '.tar.gz';
         copy($url, $downloadedPackage);
 
@@ -81,12 +81,12 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
     protected function isLinux()
     {
-        return strtolower(php_uname('s')) === 'linux';
+        return strtolower(PHP_OS) === 'linux';
     }
 
     protected function isMac()
     {
-        return strtolower(php_uname('s')) === 'darwin';
+        return strtolower(PHP_OS) === 'darwin';
     }
 
     protected function is64bit()
