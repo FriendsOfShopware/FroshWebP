@@ -17,6 +17,9 @@ class PhpGd implements WebpEncoderInterface
     {
         ob_start();
         imagewebp($image, null, $quality);
+		if (ob_get_length() % 2 === 1) {
+			echo "\0";
+		}
         $content = ob_get_contents();
         ob_end_clean();
 
