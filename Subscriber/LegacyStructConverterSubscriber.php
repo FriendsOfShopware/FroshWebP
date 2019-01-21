@@ -45,6 +45,8 @@ class LegacyStructConverterSubscriber implements SubscriberInterface
             }
         }
 
+        unset($thumbnail);
+
         $args->setReturn($data);
     }
 

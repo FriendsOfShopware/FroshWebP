@@ -5,8 +5,8 @@
         <element type="boolean">
             <name>enableWebPInFrontend</name>
             <label lang="de">WebP in Frontend anzeigen</label>
-            <label lang="en">WebP in Frontend anzeigen</label>
-            <value>true</value>
+            <label lang="en">Enable WebP in Frontend</label>
+            <value>false</value>
         </element>
         <element type="number">
             <name>webPQuality</name>

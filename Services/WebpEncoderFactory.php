@@ -7,7 +7,9 @@ use FroshWebP\Components\WebpEncoderInterface;
 
 class WebpEncoderFactory
 {
-    /** @var WebpEncoderInterface[] */
+    /**
+     * @var WebpEncoderInterface[]
+     */
     private $encoders;
 
     public function __construct(ArrayCollection $encoders)
@@ -15,7 +17,9 @@ class WebpEncoderFactory
         $this->encoders = $encoders->toArray();
     }
 
-    /** @return WebpEncoderInterface[] */
+    /**
+     * @return WebpEncoderInterface[]
+     */
     public function getEncoders()
     {
         return $this->encoders;

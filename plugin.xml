@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
-    <label lang="de">FroshWebP</label>
-    <label lang="en">FroshWebP</label>
-    <version>1.0.0</version>
+    <label lang="de">Webp Unterstützung</label>
+    <label lang="en">Webp Support</label>
+    <version>1.0.1</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
     <author>Friends of Shopware</author>
+    <compatibility minVersion="5.4.0"/>
+
+    <description lang="en">Webp Support for Shopware</description>
+    <description lang="de">Webp Support für Shopware</description>
+
+    <changelog version="1.0.0">
+        <changes lang="en">First Release</changes>
+        <changes lang="de">Erster Release</changes>
+    </changelog>
+
+    <changelog version="1.0.1">
+        <changes lang="en">Initial Release in Community Store</changes>
+        <changes lang="de">Erster Release im Community Store</changes>
+    </changelog>
 </plugin>

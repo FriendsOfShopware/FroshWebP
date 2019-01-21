@@ -1,9 +1,6 @@
 language: php
-
 php:
   - 7.2
-  - 7.3
-  - nightly
 
 sudo: false
 
@@ -23,6 +20,41 @@ install:
 
 script:
   - "./build.sh $TRAVIS_TAG"
+
+stages:
+  - test
+  - name: Store-Check
+    if: branch = master
+  - name: Store-Sync
+    if: branch = master
+  - name: Store-Deploy
+    if: tag IS present
+
+jobs:
+  include:
+    - stage: Store-Check
+      php: 7.3
+      before_script: skip
+      install:
+        - ./build.sh master
+        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
+      script:
+        - php frosh-plugin-upload.phar plugin:validate ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
+    - stage: Store-Sync
+      before_script: skip
+      php: 7.3
+      install:
+        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
+      script:
+        - php frosh-plugin-upload.phar plugin:update ${TRAVIS_BUILD_DIR}/Resources/store
+    - stage: Store-Deploy
+      before_script: skip
+      php: 7.3
+      install:
+        - wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/blob/master/frosh-plugin-upload.phar?raw=true' -O frosh-plugin-upload.phar
+      script:
+        - ./build.sh
+        - php frosh-plugin-upload.phar plugin:upload ${TRAVIS_BUILD_DIR}/${PLUGIN_NAME}*.zip
 
 deploy:
   skip_cleanup: true

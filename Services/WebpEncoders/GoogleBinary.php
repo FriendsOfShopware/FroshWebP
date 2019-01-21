@@ -8,22 +8,30 @@ use Symfony\Component\Process\Process;
 
 class GoogleBinary implements WebpEncoderInterface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $cachedDownloadDir;
 
-    /** @param string $cachedDownloadDir */
+    /**
+     * @param string $cachedDownloadDir
+     */
     public function __construct($cachedDownloadDir)
     {
         $this->cachedDownloadDir = $cachedDownloadDir;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'Google cwebp';
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function encode($image, $quality)
     {
         $src = tempnam(sys_get_temp_dir(), 'cwebp');
@@ -54,7 +62,9 @@ class GoogleBinary implements WebpEncoderInterface
         }
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function isRunnable()
     {
         return $this->getGoogleWebpConverterPath() !== null;
