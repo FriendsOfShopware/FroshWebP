@@ -62,6 +62,11 @@ class MediaUploadSubscriber implements SubscriberInterface
         $webpPath = str_replace($media->getExtension(), 'webp', $media->getPath());
 
         if ($this->mediaService->has($webpPath)) {
+            $webpMedia = clone $media;
+            $webpMedia->setPath($webpPath);
+            $webpMedia->setExtension('webp');
+            $webpMedia->removeThumbnails();
+
             $this->mediaService->delete($webpPath);
         }
     }
