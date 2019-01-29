@@ -6,7 +6,6 @@ use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
 use FroshWebP\Services\WebpEncoderFactory;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
-use Shopware\Models\Media\Media;
 
 /**
  * Class MediaUploadSubscriber
@@ -48,7 +47,28 @@ class MediaUploadSubscriber implements SubscriberInterface
     {
         return [
             'Shopware\Models\Media\Media::postPersist' => 'onFileUploaded',
+            'Shopware\Models\Media\Media::postRemove' => 'onFileRemoved',
         ];
+    }
+
+    /**
+     * @param Enlight_Event_EventArgs $args
+     */
+    public function onFileRemoved(\Enlight_Event_EventArgs $args)
+    {
+        /** @var \Shopware\Models\Media\Media $media */
+        $media = $args->get('entity');
+
+        $webpPath = str_replace($media->getExtension(), 'webp', $media->getPath());
+
+        if ($this->mediaService->has($webpPath)) {
+            $webpMedia = clone $media;
+            $webpMedia->setPath($webpPath);
+            $webpMedia->setExtension('webp');
+            $webpMedia->removeThumbnails();
+
+            $this->mediaService->delete($webpPath);
+        }
     }
 
     /**
