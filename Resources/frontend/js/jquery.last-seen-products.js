@@ -1,4 +1,4 @@
-$.subscribe('plugin/swLastSeenProducts/onCreateProductImage', function (_, _, element, data) {
+$.subscribe('plugin/swLastSeenProducts/onCreateProductImage', function (_, element, data) {
     if (data.images[0].sourceSetWebP) {
         var imageElement = element.find('.image--element');
         var content = imageElement.find('.image--media').html();
