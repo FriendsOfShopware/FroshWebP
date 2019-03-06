@@ -37,15 +37,50 @@ class DownloadGoogleBinaries extends ShopwareCommand
             return 1;
         }
 
-        if ($this->isLinux()) {
-            $packageDirectory = 'libwebp-1.0.1-linux-x86-64';
-        } elseif ($this->isMac()) {
-            $packageDirectory = 'libwebp-1.0.1-mac-10.13';
-        } else {
+        if (!$this->isLinux() && !$this->isMac()) {
             $style->error('Downloading binaries is supported for linux and mac only');
 
             return 2;
         }
+
+        if ($this->isMac()) {
+            return $this->installMac($style);
+        }
+
+        return $this->installLinux($style);
+
+        return 0;
+    }
+
+    private function installLinux(SymfonyStyle $style)
+    {
+        $binFolder = $this->container->getParameter('shyim_web_p.cached_download_dir') . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
+        $binFile = $binFolder . 'cwebp';
+
+        if (!file_exists($binFolder)) {
+            mkdir($binFolder, 07777, true);
+        }
+
+        copy('https://github.com/FriendsOfShopware/FroshWebP/releases/download/1.0.1/cwebp', $binFile);
+
+        if (!file_exists($binFile)) {
+            $style->error('Downloading package failed');
+
+            return 3;
+        }
+
+        chmod($binFile, 01774);
+
+        $cacheDownloadDir = $this->container->getParameter('shyim_web_p.cached_download_dir');
+
+        $style->success(sprintf('Successfully installed cwebp to %s/bin/cwebp', $cacheDownloadDir));
+
+        return 0;
+    }
+
+    private function installMac(SymfonyStyle $style)
+    {
+        $packageDirectory = 'libwebp-1.0.1-mac-10.13';
 
         $downloadedPackage = tempnam($this->container->getParameter('kernel.cache_dir'), 'libwebp') . '.tar.gz';
         $url = 'https://storage.googleapis.com/downloads.webmproject.org/releases/webp/' . $packageDirectory . '.tar.gz';
@@ -75,6 +110,8 @@ class DownloadGoogleBinaries extends ShopwareCommand
         $this->clearDirectory($cacheDownloadDir);
         rename($downloadDir . DIRECTORY_SEPARATOR . $packageDirectory, $cacheDownloadDir);
         $this->clearDirectory($downloadDir);
+
+        $style->success(sprintf('Successfully installed cwebp to %s/bin/cwebp', $cacheDownloadDir));
 
         return 0;
     }
