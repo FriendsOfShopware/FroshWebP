@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -21,5 +21,24 @@
     <changelog version="1.0.1">
         <changes lang="en">Initial Release in Community Store</changes>
         <changes lang="de">Erster Release im Community Store</changes>
+    </changelog>
+
+    <changelog version="1.0.2">
+        <changes lang="en">
+            - Improved Error Handling of Google Binary Encoder
+            - Added static compiled Google Binary
+            - Added new Command frosh:webp:status to show webp availability
+            - Fix Banner webp implementation
+            - Fix uploading non images to Media Manager
+            - Added webp to lightbox and prev and next product
+        </changes>
+        <changes lang="de">
+            - Fehlerausgabe vom Google Binary Encoder verbessert
+            - Statisch kompilierte Google Binary hinzugefügt
+            - Neuer Command frosh:webp:status zum Überprüfen von Webp Verfügbarkeit
+            - Banner Einbindung behoben
+            - Hochladen von nicht Bildern behoben
+            - Detail-Seite: Lightbox und Vor und Zurück benutzt nun WebP
+        </changes>
     </changelog>
 </plugin>
