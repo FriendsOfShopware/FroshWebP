@@ -50,6 +50,10 @@
             <tag name="console.command" command="frosh:webp:download-google-binaries"/>
         </service>
 
+        <service id="frosh_web_p.commands.web_pstatus" class="FroshWebP\Commands\WebPStatus">
+            <tag name="console.command" command="frosh:webp:status"/>
+        </service>
+
         <service id="frosh_webp.collections.webp_encoders" class="Doctrine\Common\Collections\ArrayCollection">
             <argument type="collection"/>
         </service>
