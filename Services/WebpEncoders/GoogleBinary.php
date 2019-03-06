@@ -50,6 +50,10 @@ class GoogleBinary implements WebpEncoderInterface
             ]);
             $process->run();
 
+            if ($process->getExitCode() !== 0) {
+                throw new \RuntimeException($process->getErrorOutput());
+            }
+
             return file_get_contents($dst);
         } finally {
             if (file_exists($src)) {
@@ -67,7 +71,16 @@ class GoogleBinary implements WebpEncoderInterface
      */
     public function isRunnable()
     {
-        return $this->getGoogleWebpConverterPath() !== null;
+        $path = $this->getGoogleWebpConverterPath();
+
+        if ($path === null) {
+            return false;
+        }
+
+        $process = new Process($path);
+        $process->run();
+
+        return $process->getExitCode() === 0;
     }
 
     /** @return string */
