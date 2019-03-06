@@ -29,7 +29,7 @@
 
             {if $image.retinaSource}
                 {$retinaSrcSet = "{if $retinaSrcSet}{$retinaSrcSet}, {/if}{$image.retinaSource} {$image.maxWidth}w"}
-                {$retinaSrcSetWebP = "{if $retinaSrcSet}{$retinaSrcSet}, {/if}{$image.webp.retinaSource} {$image.webp.maxWidth}w"}
+                {$retinaSrcSetWebP = "{if $retinaSrcSetWebP}{$retinaSrcSetWebP}, {/if}{$image.webp.retinaSource} {$image.webp.maxWidth}w"}
             {/if}
         {/foreach}
     {else}
