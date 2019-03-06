@@ -30,6 +30,10 @@
             <tag name="shopware.event_subscriber"/>
         </service>
 
+        <service id="frosh_web_p.subscriber.modernizr_subscriber" class="FroshWebP\Subscriber\ModernizrSubscriber">
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
         <service id="frosh_webp.subscriber.media_upload" class="FroshWebP\Subscriber\MediaUploadSubscriber">
             <argument type="service" id="shopware_media.media_service"/>
             <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
