@@ -12,6 +12,12 @@ use Shopware\Bundle\MediaBundle\MediaServiceInterface;
  */
 class MediaUploadSubscriber implements SubscriberInterface
 {
+    const CAN_HANDLE_EXTENSIONS = [
+        'jpg',
+        'jpeg',
+        'png'
+    ];
+
     /**
      * @var MediaServiceInterface
      */
@@ -59,6 +65,12 @@ class MediaUploadSubscriber implements SubscriberInterface
         /** @var \Shopware\Models\Media\Media $media */
         $media = $args->get('entity');
 
+        $extension = strtolower($media->getExtension());
+
+        if (!in_array($extension, self::CAN_HANDLE_EXTENSIONS)) {
+            return;
+        }
+
         $webpPath = str_replace($media->getExtension(), 'webp', $media->getPath());
 
         if ($this->mediaService->has($webpPath)) {
@@ -81,6 +93,11 @@ class MediaUploadSubscriber implements SubscriberInterface
         if (($encoder = current($runnableEncoders)) !== false) {
             /** @var \Shopware\Models\Media\Media $media */
             $media = $args->get('entity');
+            $extension = strtolower($media->getExtension());
+
+            if (!in_array($extension, self::CAN_HANDLE_EXTENSIONS)) {
+                return;
+            }
 
             $webpPath = str_replace($media->getExtension(), 'webp', $media->getPath());
             $im = imagecreatefromstring($this->mediaService->read($media->getPath()));
