@@ -79,5 +79,11 @@
             <tag name="frosh_webp.webp_encoder" priority="200" />
             <argument type="string">%shyim_web_p.cached_download_dir%</argument>
         </service>
+
+        <service id="frosh_web_p.components.inheritance" class="FroshWebP\Components\Inheritance" decorates="theme_inheritance">
+            <argument type="service" id="frosh_web_p.components.inheritance.inner"/>
+            <argument type="service" id="dbal_connection"/>
+            <argument type="service" id="shopware_media.media_service"/>
+        </service>
     </services>
 </container>
