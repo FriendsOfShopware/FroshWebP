@@ -77,10 +77,14 @@ class GoogleBinary implements WebpEncoderInterface
             return false;
         }
 
-        $process = new Process($path);
-        $process->run();
+        try {
+            $process = new Process($path);
+            $process->run();
 
-        return $process->getExitCode() === 0;
+            return $process->getExitCode() === 0;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /** @return string */
