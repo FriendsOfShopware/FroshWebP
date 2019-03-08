@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -39,6 +39,17 @@
             - Banner Einbindung behoben
             - Hochladen von nicht Bildern behoben
             - Detail-Seite: Lightbox und Vor und Zurück benutzt nun WebP
+        </changes>
+    </changelog>
+
+    <changelog version="1.0.3">
+        <changes lang="en">
+            - Fixed Google Binary Usage
+            - Added new support tab to Systeminfo
+        </changes>
+        <changes lang="de">
+            - Benutzung von Google Binary verbessert
+            - Systeminfo ein Support Tab hinzugefügt
         </changes>
     </changelog>
 </plugin>
