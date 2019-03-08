@@ -36,10 +36,10 @@
         {$srcSetRetina = ''}
 
         {foreach $sArticle.image.thumbnails as $image}
-            {$srcSetWebp = "{if $srcSet}{$srcSet}, {/if}{$image.webp.source} {$image.maxWidth}w"}
+            {$srcSetWebp = "{if $srcSetWebp}{$srcSetWebp}, {/if}{$image.webp.source} {$image.maxWidth}w"}
 
             {if $image.retinaSource}
-                {$srcSetRetinaWebp = "{if $srcSetRetina}{$srcSetRetina}, {/if}{$image.webp.retinaSource} {$image.maxWidth * 2}w"}
+                {$srcSetRetinaWebp = "{if $srcSetRetina}{$srcSetRetinaWebp}, {/if}{$image.webp.retinaSource} {$image.maxWidth * 2}w"}
             {/if}
         {/foreach}
 
