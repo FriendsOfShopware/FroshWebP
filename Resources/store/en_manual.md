@@ -1,7 +1,6 @@
-<ul>
-    <li>Install the Plugin and Activate</li>
-    <li>Clear cache</li>
-    <li><strong>Important: Generate for all Album all Thumbnails</strong></li>
-    <li>Enable WebP in Plugin Settings</li>
-    <li>Clear cache</li>
-</ul>
+* Install the plugin and activate it
+* Clear the cache
+* **Generate for all Album all Thumbnails**
+* **Generate for all orginal images in webp (./bin/consolw frosh:webp:generate)**
+* Enable webp in Plugin settings
+* Clear the cache
