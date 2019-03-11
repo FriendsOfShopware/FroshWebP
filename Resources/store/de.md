@@ -3,15 +3,16 @@
 ### Features
 
 * Einsparung von Bildgrösse gegenüber JPEG / PNG
-* Unterstüzt verlustfreie Transparenz und Animation
-* Durch HTML5 Picture tag, wird es nur in Browsern angezeigt die es supporten
+* Unterstützt verlustfreie Transparenz und Animation
+* Durch die Verwendung von `HTML5 Picture tag` werden die Webp-Bilder nur in Browsern angezeigt, die es unterstützen
 
 ### Kompatiblität
 
-Um Webp Bilder generieren zu können muss entweder PHP mit Webp Support gebaut sein oder es muss `cwebp` auf dem Server installiert sein.
-Cwebp kann auch via Konsolen Befehl "./bin/console frosh:webp:download-google-binaries" heruntergeladen werden
+Um Webp-Bilder generieren zu können, muss entweder PHP mit Webp-Support kompiliert sein oder `cwebp` auf dem Server installiert sein.
+Cwebp kann auch via Konsolenbefehl "./bin/console frosh:webp:download-google-binaries" heruntergeladen werden.
+Die Unterstützung der Webp-Generierung kann nach der Installation des Plugins im Backend unter `Einstellungen/Systeminfo/Webp-Support` geprüft werden.
 
-Bekannte Hoster die Webp im Standard können:
+Bekannte Hoster, die Webp im Standard unterstützen:
 
 * Timmehosting
 
