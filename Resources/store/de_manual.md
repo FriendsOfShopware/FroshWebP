@@ -1,6 +1,6 @@
 * Plugin installieren
 * Cache leeren
-* Alle Thumbnails neugenerieren (./bin/console sw:thumbnail:generate -f)
-* Alle Bilder als Webp generieren (./bin/consolw frosh:webp:generate)
-* Webp in Plugineinstellungen aktivieren
+* **Alle Thumbnails neu generieren (./bin/console sw:thumbnail:generate -f)**
+* **Alle Bilder als Webp generieren (./bin/console frosh:webp:generate)**
+* Webp in den Plugineinstellungen aktivieren
 * Cache leeren
