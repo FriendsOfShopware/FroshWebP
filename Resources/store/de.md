@@ -1,4 +1,4 @@
-# WebP Unterstützung für Shopware
+## WebP Unterstützung für Shopware
 
 ### Features
 

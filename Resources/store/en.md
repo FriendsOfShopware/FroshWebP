@@ -1,4 +1,4 @@
-### WebP Support
+## WebP Support
 
 ### Features
 
