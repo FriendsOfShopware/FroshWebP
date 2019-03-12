@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -50,6 +50,21 @@
         <changes lang="de">
             - Benutzung von Google Binary verbessert
             - Systeminfo ein Support Tab hinzugefügt
+        </changes>
+    </changelog>
+
+    <changelog version="1.0.4">
+        <changes lang="en">
+            - Please make sure that all images are generated in webp using ./bin/console frosh:webp:generate
+            - Shop logos in WebP
+            - Update Modernizr
+            - Optimized Javascript Code, Thanks to @KaiSoellch
+        </changes>
+        <changes lang="de">
+            - Vor dem Updaten sollte sichergestellt sein dass (./bin/console frosh:webp:generate) ausgeführt wurde
+            - Shop Logos sind nun in WebP
+            - Modernizr wurde aktualisiert
+            - Javascript Code optimiert, Danke an @KaiSoellch
         </changes>
     </changelog>
 </plugin>
