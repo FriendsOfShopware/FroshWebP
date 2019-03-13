@@ -15,6 +15,7 @@ Die Unterstützung der Webp-Generierung kann nach der Installation des Plugins i
 Bekannte Hoster, die Webp im Standard unterstützen:
 
 * Timmehosting
+* Profihost
 
 Das Plugin wird von der Github Organization [FriendsOfShopware](https://github.com/FriendsOfShopware/) entwickelt.
 Maintainer des Plugin ist [Soner Sayakci](https://github.com/shyim).
