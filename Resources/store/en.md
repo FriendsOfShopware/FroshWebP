@@ -17,6 +17,7 @@ Advanced: Alternative you can use the WebP Binary to convert files. To download 
 Known hosters who can webp in without hassle:
 
 * Timmehosting
+* Profihost
 
 The plugin is provided by the Github Organization [FriendsOfShopware](https://github.com/FriendsOfShopware/).
 Maintainer of the plugin is [Soner Sayakci](https://github.com/shyim).
