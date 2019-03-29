@@ -15,7 +15,7 @@ class MediaUploadSubscriber implements SubscriberInterface
     const CAN_HANDLE_EXTENSIONS = [
         'jpg',
         'jpeg',
-        'png'
+        'png',
     ];
 
     /**

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FroshWebP\Commands;
 
 use FroshWebP\Services\WebpEncoderFactory;

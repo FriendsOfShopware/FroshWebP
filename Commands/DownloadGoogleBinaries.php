@@ -52,6 +52,39 @@ class DownloadGoogleBinaries extends ShopwareCommand
         return 0;
     }
 
+    protected function isLinux()
+    {
+        return strtolower(PHP_OS) === 'linux';
+    }
+
+    protected function isMac()
+    {
+        return strtolower(PHP_OS) === 'darwin';
+    }
+
+    protected function is64bit()
+    {
+        return strpos(php_uname('m'), '64') !== false;
+    }
+
+    protected function clearDirectory($directory)
+    {
+        if (file_exists($directory)) {
+            $it = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS);
+            $files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
+
+            foreach ($files as $file) {
+                if ($file->isDir()) {
+                    rmdir($file->getRealPath());
+                } else {
+                    unlink($file->getRealPath());
+                }
+            }
+
+            rmdir($directory);
+        }
+    }
+
     private function installLinux(SymfonyStyle $style)
     {
         $binFolder = $this->container->getParameter('shyim_web_p.cached_download_dir') . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
@@ -114,38 +147,5 @@ class DownloadGoogleBinaries extends ShopwareCommand
         $style->success(sprintf('Successfully installed cwebp to %s/bin/cwebp', $cacheDownloadDir));
 
         return 0;
-    }
-
-    protected function isLinux()
-    {
-        return strtolower(PHP_OS) === 'linux';
-    }
-
-    protected function isMac()
-    {
-        return strtolower(PHP_OS) === 'darwin';
-    }
-
-    protected function is64bit()
-    {
-        return strpos(php_uname('m'), '64') !== false;
-    }
-
-    protected function clearDirectory($directory)
-    {
-        if (file_exists($directory)) {
-            $it = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS);
-            $files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
-
-            foreach ($files as $file) {
-                if ($file->isDir()) {
-                    rmdir($file->getRealPath());
-                } else {
-                    unlink($file->getRealPath());
-                }
-            }
-
-            rmdir($directory);
-        }
     }
 }

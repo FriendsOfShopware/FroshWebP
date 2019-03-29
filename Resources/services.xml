@@ -52,6 +52,10 @@
         </service>
 
         <service id="frosh_webp.commands.generate_webp" class="FroshWebP\Commands\GenerateWebpImages">
+            <argument type="service" id="models"/>
+            <argument type="service" id="shopware_media.media_service"/>
+            <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
+            <argument type="service" id="frosh_webp.config" />
             <tag name="console.command" command="frosh:webp:generate"/>
         </service>
 

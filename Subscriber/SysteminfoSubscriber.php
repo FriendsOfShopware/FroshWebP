@@ -35,7 +35,7 @@ class SysteminfoSubscriber implements SubscriberInterface
         foreach ($this->webpEncoderFactory->getEncoders() as $encoder) {
             $results[] = [
                 'name' => $encoder->getName(),
-                'available' => $encoder->isRunnable()
+                'available' => $encoder->isRunnable(),
             ];
         }
 
