@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jinnoflife
- * Date: 2019-03-29
- * Time: 15:17
- */
 
 namespace FroshWebP\Factories;
 

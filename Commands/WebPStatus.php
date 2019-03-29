@@ -8,6 +8,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Class WebPStatus
+ * @package FroshWebP\Commands
+ */
 class WebPStatus extends ShopwareCommand
 {
     public function configure()
@@ -17,6 +21,11 @@ class WebPStatus extends ShopwareCommand
             ->setDescription('Checks for webp availability');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);

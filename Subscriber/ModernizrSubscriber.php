@@ -4,6 +4,10 @@ namespace FroshWebP\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 
+/**
+ * Class ModernizrSubscriber
+ * @package FroshWebP\Subscriber
+ */
 class ModernizrSubscriber implements SubscriberInterface
 {
     /**
@@ -16,6 +20,10 @@ class ModernizrSubscriber implements SubscriberInterface
         ];
     }
 
+    /**
+     * @param \Enlight_Event_EventArgs $args
+     * @return mixed
+     */
     public function filterJavascriptFiles(\Enlight_Event_EventArgs $args)
     {
         $files = $args->getReturn();

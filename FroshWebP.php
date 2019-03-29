@@ -8,6 +8,10 @@ use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Class FroshWebP
+ * @package FroshWebP
+ */
 class FroshWebP extends Plugin
 {
     use TagReplaceTrait;

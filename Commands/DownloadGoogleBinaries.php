@@ -11,6 +11,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Class DownloadGoogleBinaries
+ * @package FroshWebP\Commands
+ */
 class DownloadGoogleBinaries extends ShopwareCommand
 {
     protected function configure()
@@ -48,25 +52,36 @@ class DownloadGoogleBinaries extends ShopwareCommand
         }
 
         return $this->installLinux($style);
-
-        return 0;
     }
 
+    /**
+     * @return bool
+     */
     protected function isLinux()
     {
         return strtolower(PHP_OS) === 'linux';
     }
 
+    /**
+     * @return bool
+     */
     protected function isMac()
     {
         return strtolower(PHP_OS) === 'darwin';
     }
 
+    /**
+     * @return bool
+     */
     protected function is64bit()
     {
         return strpos(php_uname('m'), '64') !== false;
     }
 
+
+    /**
+     * @param $directory
+     */
     protected function clearDirectory($directory)
     {
         if (file_exists($directory)) {
@@ -85,6 +100,10 @@ class DownloadGoogleBinaries extends ShopwareCommand
         }
     }
 
+    /**
+     * @param SymfonyStyle $style
+     * @return int
+     */
     private function installLinux(SymfonyStyle $style)
     {
         $binFolder = $this->container->getParameter('shyim_web_p.cached_download_dir') . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
@@ -111,6 +130,10 @@ class DownloadGoogleBinaries extends ShopwareCommand
         return 0;
     }
 
+    /**
+     * @param SymfonyStyle $style
+     * @return int
+     */
     private function installMac(SymfonyStyle $style)
     {
         $packageDirectory = 'libwebp-1.0.1-mac-10.13';

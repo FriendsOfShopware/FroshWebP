@@ -9,6 +9,10 @@ use Shopware\Bundle\MediaBundle\MediaServiceInterface;
 use Shopware\Bundle\MediaBundle\OptimizerServiceInterface;
 use Shopware\Components\Thumbnail\Generator\GeneratorInterface;
 
+/**
+ * Class WebPGenerator
+ * @package FroshWebP\Components\Thumbnail\Generator
+ */
 class WebPGenerator implements GeneratorInterface
 {
     /**
@@ -127,8 +131,7 @@ class WebPGenerator implements GeneratorInterface
      *
      * @param string $fileContent
      *
-     * @throws \RuntimeException
-     *
+     * @param $imagePath
      * @return resource
      */
     private function createImageResource($fileContent, $imagePath)

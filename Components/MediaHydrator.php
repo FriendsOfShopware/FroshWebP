@@ -39,7 +39,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
 
     /**
      * @param AttributeHydrator                      $attributeHydrator
-     * @param \Shopware\Components\Thumbnail\Manager $thumbnailManager
+     * @param Manager $thumbnailManager
      * @param MediaServiceInterface                  $mediaService
      * @param Connection                             $database
      */
@@ -55,6 +55,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
      * @param array $data
      *
      * @return Media
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function hydrate(array $data)
     {
@@ -123,6 +124,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
      * @param array $data
      *
      * @return Media
+     * @throws \Exception
      */
     public function hydrateProductImage(array $data)
     {
@@ -169,6 +171,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
      * @param array $data Contains the array data for the media
      *
      * @return array
+     * @throws \Exception
      */
     private function getMediaThumbnails(array $data)
     {
@@ -217,6 +220,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
      * @param array $data
      *
      * @return array
+     * @throws \Doctrine\DBAL\DBALException
      */
     private function updateMedia(array $data)
     {

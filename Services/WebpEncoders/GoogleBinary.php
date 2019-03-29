@@ -6,6 +6,10 @@ use FroshWebP\Components\WebpEncoderInterface;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
+/**
+ * Class GoogleBinary
+ * @package FroshWebP\Services\WebpEncoders
+ */
 class GoogleBinary implements WebpEncoderInterface
 {
     /**

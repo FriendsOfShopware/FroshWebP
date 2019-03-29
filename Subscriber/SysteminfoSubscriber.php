@@ -5,6 +5,10 @@ namespace FroshWebP\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use FroshWebP\Services\WebpEncoderFactory;
 
+/**
+ * Class SysteminfoSubscriber
+ * @package FroshWebP\Subscriber
+ */
 class SysteminfoSubscriber implements SubscriberInterface
 {
     /**
@@ -12,11 +16,18 @@ class SysteminfoSubscriber implements SubscriberInterface
      */
     private $webpEncoderFactory;
 
+    /**
+     * SysteminfoSubscriber constructor.
+     * @param WebpEncoderFactory $webpEncoderFactory
+     */
     public function __construct(WebpEncoderFactory $webpEncoderFactory)
     {
         $this->webpEncoderFactory = $webpEncoderFactory;
     }
 
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -25,6 +36,10 @@ class SysteminfoSubscriber implements SubscriberInterface
         ];
     }
 
+    /**
+     * @param \Enlight_Event_EventArgs $args
+     * @return bool
+     */
     public function onWebpEncoders(\Enlight_Event_EventArgs $args)
     {
         /** @var \Shopware_Controllers_Backend_Systeminfo $subject */
@@ -46,6 +61,9 @@ class SysteminfoSubscriber implements SubscriberInterface
         return true;
     }
 
+    /**
+     * @param \Enlight_Event_EventArgs $args
+     */
     public function onPostDispatchSystemInfo(\Enlight_Event_EventArgs $args)
     {
         /** @var \Shopware_Controllers_Backend_Systeminfo $subject */
