@@ -5,6 +5,10 @@ namespace FroshWebP\Services;
 use Doctrine\Common\Collections\ArrayCollection;
 use FroshWebP\Components\WebpEncoderInterface;
 
+/**
+ * Class WebpEncoderFactory
+ * @package FroshWebP\Services
+ */
 class WebpEncoderFactory
 {
     /**
@@ -12,6 +16,10 @@ class WebpEncoderFactory
      */
     private $encoders;
 
+    /**
+     * WebpEncoderFactory constructor.
+     * @param ArrayCollection $encoders
+     */
     public function __construct(ArrayCollection $encoders)
     {
         $this->encoders = $encoders->toArray();

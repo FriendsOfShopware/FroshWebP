@@ -11,6 +11,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Class DownloadGoogleBinaries
+ * @package FroshWebP\Commands
+ */
 class DownloadGoogleBinaries extends ShopwareCommand
 {
     protected function configure()
@@ -48,10 +52,58 @@ class DownloadGoogleBinaries extends ShopwareCommand
         }
 
         return $this->installLinux($style);
-
-        return 0;
     }
 
+    /**
+     * @return bool
+     */
+    protected function isLinux()
+    {
+        return strtolower(PHP_OS) === 'linux';
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isMac()
+    {
+        return strtolower(PHP_OS) === 'darwin';
+    }
+
+    /**
+     * @return bool
+     */
+    protected function is64bit()
+    {
+        return strpos(php_uname('m'), '64') !== false;
+    }
+
+
+    /**
+     * @param $directory
+     */
+    protected function clearDirectory($directory)
+    {
+        if (file_exists($directory)) {
+            $it = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS);
+            $files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
+
+            foreach ($files as $file) {
+                if ($file->isDir()) {
+                    rmdir($file->getRealPath());
+                } else {
+                    unlink($file->getRealPath());
+                }
+            }
+
+            rmdir($directory);
+        }
+    }
+
+    /**
+     * @param SymfonyStyle $style
+     * @return int
+     */
     private function installLinux(SymfonyStyle $style)
     {
         $binFolder = $this->container->getParameter('shyim_web_p.cached_download_dir') . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
@@ -78,6 +130,10 @@ class DownloadGoogleBinaries extends ShopwareCommand
         return 0;
     }
 
+    /**
+     * @param SymfonyStyle $style
+     * @return int
+     */
     private function installMac(SymfonyStyle $style)
     {
         $packageDirectory = 'libwebp-1.0.1-mac-10.13';
@@ -114,38 +170,5 @@ class DownloadGoogleBinaries extends ShopwareCommand
         $style->success(sprintf('Successfully installed cwebp to %s/bin/cwebp', $cacheDownloadDir));
 
         return 0;
-    }
-
-    protected function isLinux()
-    {
-        return strtolower(PHP_OS) === 'linux';
-    }
-
-    protected function isMac()
-    {
-        return strtolower(PHP_OS) === 'darwin';
-    }
-
-    protected function is64bit()
-    {
-        return strpos(php_uname('m'), '64') !== false;
-    }
-
-    protected function clearDirectory($directory)
-    {
-        if (file_exists($directory)) {
-            $it = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS);
-            $files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
-
-            foreach ($files as $file) {
-                if ($file->isDir()) {
-                    rmdir($file->getRealPath());
-                } else {
-                    unlink($file->getRealPath());
-                }
-            }
-
-            rmdir($directory);
-        }
     }
 }

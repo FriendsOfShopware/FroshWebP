@@ -2,10 +2,18 @@
 
 namespace FroshWebP\Commands;
 
+use FroshWebP\Components\ImageStack\Arguments;
+use FroshWebP\Components\WebpEncoderInterface;
+use FroshWebP\Factories\WebpConvertFactory;
+use FroshWebP\Models\WebPMedia;
+use FroshWebP\Repositories\WebPMediaRepository;
 use FroshWebP\Services\WebpEncoderFactory;
+use Shopware\Bundle\MediaBundle\MediaService;
 use Shopware\Commands\ShopwareCommand;
+use Shopware\Components\Model\ModelManager;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -13,11 +21,74 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class GenerateWebpImages extends ShopwareCommand
 {
+    /**
+     * @var ModelManager
+     */
+    private $modelManager;
+
+    /**
+     * @var WebPMediaRepository
+     */
+    private $webpRepository;
+
+    /** @var WebpEncoderFactory */
+    private $encoderFactory;
+
+    /** @var WebpEncoderInterface[] */
+    private $runnableEncoders;
+
+    /** @var int */
+    private $webpQuality;
+
+    /** @var MediaService */
+    private $mediaService;
+
+    /**
+     * GenerateWebpImages constructor.
+     *
+     * @param ModelManager $manager
+     * @param MediaService $mediaService
+     * @param WebpEncoderFactory $webpEncoder
+     * @param $webpConfig
+     */
+    public function __construct(ModelManager $manager, MediaService $mediaService, WebpEncoderFactory $webpEncoder, $webpConfig)
+    {
+        $this->modelManager = $manager;
+        $this->mediaService = $mediaService;
+        $this->webpRepository = $manager->getRepository(WebPMedia::class);
+        $this->encoderFactory = $webpEncoder;
+        $this->runnableEncoders = WebpEncoderFactory::onlyRunnable($this->encoderFactory->getEncoders());
+        $this->webpQuality = $webpConfig['webPQuality'];
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this
             ->setName('frosh:webp:generate')
-            ->setDescription('Generate webp images for all orginal images');
+            ->setDescription('Generate webp images for all orginal images. Can also run as stack-execution,
+            for specific folders only and with excluded folders')
+            ->addOption('stack', 's', InputOption::VALUE_OPTIONAL, 'process amount per iteration')
+            ->addOption('offset', 'o', InputOption::VALUE_OPTIONAL, 'process amount per iteration')
+            ->addOption('force', 'f', InputOption::VALUE_NONE, 'forces recreation')
+            ->addOption('setCollection', 'c', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'only generates medias for specified collection. Example: `frosh:webp:generate -c 12`')
+            ->addOption('ignoreCollection', 'i', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'ignores specified collection');
+    }
+
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        if (empty($this->runnableEncoders)) {
+            $output->writeln('No suitable encoders found');
+
+            return;
+        }
+
+        parent::initialize($input, $output);
     }
 
     /**
@@ -28,28 +99,64 @@ class GenerateWebpImages extends ShopwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var WebpEncoderFactory $encoderFactory */
-        $encoderFactory = $this->container->get('frosh_webp.services.webp_encoder_factory');
-        $runnableEncoders = WebpEncoderFactory::onlyRunnable($encoderFactory->getEncoders());
-        if (empty($runnableEncoders)) {
-            $output->writeln('No suitable encoders found');
+        $mediaCount = $this->webpRepository->countMedias($input->getOption('setCollection'), $input->getOption('ignoreCollection'));
+        $offset = $input->getOption('offset') ? $input->getOption('offset') : 0;
+        $stack = $input->getOption('stack') ? $input->getOption('stack') : $mediaCount;
+        $output->writeln('STACK: ' . $stack);
+        $output->writeln('OFFSET: ' . $offset);
 
-            return;
+        $arguments = new Arguments(
+            $input->getOption('setCollection') ? $input->getOption('setCollection') : [],
+            $input->getOption('ignoreCollection') ? $input->getOption('ignoreCollection') : [],
+            $stack,
+            $offset,
+            $input->getOption('force') ? $input->getOption('force') : false
+        );
+
+        $this->buildImageStack($output, $mediaCount, $arguments);
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @param int $mediaCount
+     * @param Arguments $arguments
+     */
+    protected function buildImageStack(OutputInterface $output, $mediaCount, Arguments $arguments)
+    {
+        for ($i = $arguments->getOffset(); $i <= $mediaCount + $arguments->getStack(); $i += $arguments->getStack()) {
+            $stackMedia = $this->webpRepository->findByOffset($arguments->getStack(), $i,
+                $arguments->getCollectionsToUse(), $arguments->getCollectionsToIgnore());
+            $progress = new ProgressBar($output, count($stackMedia));
+            $progress->start();
+            $this->buildImagesByStack($arguments->isForce(), $output, $stackMedia, $progress);
+            $progress->finish();
         }
-        $media = $this->container->get('dbal_connection')->fetchAll('SELECT * FROM s_media WHERE type = "IMAGE"');
-        $progress = new ProgressBar($output, count($media));
-        $progress->start();
-        foreach ($media as $item) {
+    }
+
+    /**
+     * @param bool            $force
+     * @param OutputInterface $output
+     * @param array           $stackMedia
+     * @param ProgressBar     $progress
+     */
+    protected function buildImagesByStack($force, OutputInterface $output, $stackMedia, ProgressBar $progress)
+    {
+        foreach ($stackMedia as $item) {
             $webpPath = str_replace($item['extension'], 'webp', $item['path']);
+            if ($this->mediaService->has($webpPath)
+                && !$force) {
+                $progress->advance();
+                continue;
+            }
             try {
-                $im = imagecreatefromstring($this->container->get('shopware_media.media_service')->read($item['path']));
-                if ($im === false) {
-                    throw new \Exception('Could not load image');
-                }
-                imagepalettetotruecolor($im);
-                $content = current($runnableEncoders)->encode($im, $this->container->get('frosh_webp.config')['webPQuality']);
+                $im = imagecreatefromstring($this->mediaService->read($item['path']));
+                $newImgContent = WebpConvertFactory::build(
+                    $im,
+                    $this->runnableEncoders,
+                    $this->webpQuality
+                );
                 imagedestroy($im);
-                $this->container->get('shopware_media.media_service')->write($webpPath, $content);
+                $this->mediaService->write($webpPath, $newImgContent);
             } catch (\Exception $e) {
                 $output->writeln($item['path'] . ' => ' . $e->getMessage());
             } catch (\Throwable $e) {
@@ -57,7 +164,5 @@ class GenerateWebpImages extends ShopwareCommand
             }
             $progress->advance();
         }
-        $progress->finish();
-        $output->writeln('');
     }
 }

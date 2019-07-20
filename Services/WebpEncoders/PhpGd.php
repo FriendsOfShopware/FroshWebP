@@ -4,6 +4,10 @@ namespace FroshWebP\Services\WebpEncoders;
 
 use FroshWebP\Components\WebpEncoderInterface;
 
+/**
+ * Class PhpGd
+ * @package FroshWebP\Services\WebpEncoders
+ */
 class PhpGd implements WebpEncoderInterface
 {
     /**
