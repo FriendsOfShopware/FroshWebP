@@ -5,13 +5,15 @@
         <element type="boolean">
             <name>enableWebPInFrontend</name>
             <label lang="de">WebP in Frontend anzeigen</label>
-            <label lang="en">Enable WebP in Frontend</label>
+            <label lang="en">Show WebP in frontend</label>
             <value>false</value>
+            <description lang="de">Diese Option erweitert die Templates und Javascript. Media &amp; Templatevariablen werden auch ohne dies Option erweitert.</description>
+            <description lang="en">This extends the templates and javascript for the frontend. Media and template variables will be extended without this option.</description>
         </element>
         <element type="number">
             <name>webPQuality</name>
             <label lang="de">WebP Quality</label>
-            <label lang="en">WebP Quality</label>
+            <label lang="en">WebP quality</label>
             <value>80</value>
         </element>
     </elements>
