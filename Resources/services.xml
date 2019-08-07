@@ -4,44 +4,45 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
-        <parameter key="shyim_web_p.cached_download_dir">%kernel.root_dir%/var/libwebp</parameter>
+        <parameter key="frosh_web_p.cached_download_dir">%kernel.root_dir%/var/libwebp</parameter>
     </parameters>
     <services>
         <service id="thumbnail_generator_basic" class="FroshWebP\Components\Thumbnail\Generator\WebPGenerator">
             <argument type="service" id="config"/>
             <argument type="service" id="shopware_media.media_service"/>
             <argument type="service" id="shopware_media.optimizer_service"/>
-            <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
+            <argument type="service" id="FroshWebP\Services\WebpEncoderFactory"/>
         </service>
 
-        <service id="frosh_webp.mediahydrator" class="FroshWebP\Components\MediaHydrator" decorates="shopware_storefront.media_hydrator_dbal" decoration-priority="500">
+        <service id="FroshWebP\Components\MediaHydrator" decorates="shopware_storefront.media_hydrator_dbal"
+                 decoration-priority="500">
             <argument type="service" id="shopware_storefront.attribute_hydrator_dbal"/>
             <argument type="service" id="thumbnail_manager"/>
             <argument type="service" id="shopware_media.media_service"/>
             <argument type="service" id="dbal_connection"/>
         </service>
 
-        <service id="frosh_webp.subscriber.legacy_struct_converter" class="FroshWebP\Subscriber\LegacyStructConverterSubscriber">
+        <service id="FroshWebP\Subscriber\LegacyStructConverterSubscriber">
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="frosh_webp.subscriber.template_subscriber" class="FroshWebP\Subscriber\TemplateSubscriber">
+        <service id="FroshWebP\Subscriber\TemplateSubscriber">
             <argument type="service" id="frosh_webp.config"/>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="frosh_web_p.subscriber.modernizr_subscriber" class="FroshWebP\Subscriber\ModernizrSubscriber">
+        <service id="FroshWebP\Subscriber\ModernizrSubscriber">
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="frosh_web_p.subscriber.systeminfo_subscriber" class="FroshWebP\Subscriber\SysteminfoSubscriber">
-            <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
+        <service id="FroshWebP\Subscriber\SysteminfoSubscriber">
+            <argument type="service" id="FroshWebP\Services\WebpEncoderFactory"/>
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="frosh_webp.subscriber.media_upload" class="FroshWebP\Subscriber\MediaUploadSubscriber">
+        <service id="FroshWebP\Subscriber\MediaUploadSubscriber">
             <argument type="service" id="shopware_media.media_service"/>
-            <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
+            <argument type="service" id="FroshWebP\Services\WebpEncoderFactory"/>
             <argument type="service" id="frosh_webp.config"/>
             <tag name="shopware.event_subscriber"/>
         </service>
@@ -51,36 +52,37 @@
             <argument type="string">FroshWebP</argument>
         </service>
 
-        <service id="frosh_webp.commands.generate_webp" class="FroshWebP\Commands\GenerateWebpImages">
+        <service id="FroshWebP\Commands\GenerateWebpImages">
             <argument type="service" id="models"/>
             <argument type="service" id="shopware_media.media_service"/>
-            <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
+            <argument type="service" id="FroshWebP\Services\WebpEncoderFactory"/>
             <argument type="service" id="frosh_webp.config"/>
             <tag name="console.command" command="frosh:webp:generate"/>
         </service>
 
-        <service id="frosh_webp.commands.download_google_binaries" class="FroshWebP\Commands\DownloadGoogleBinaries">
+        <service id="FroshWebP\Commands\DownloadGoogleBinaries">
             <tag name="console.command" command="frosh:webp:download-google-binaries"/>
         </service>
 
-        <service id="frosh_web_p.commands.web_pstatus" class="FroshWebP\Commands\WebPStatus">
+        <service id="FroshWebP\Commands\WebPStatus">
             <tag name="console.command" command="frosh:webp:status"/>
         </service>
 
-        <service id="frosh_webp.services.webp_encoder_factory" class="FroshWebP\Services\WebpEncoderFactory">
+        <service id="FroshWebP\Services\WebpEncoderFactory">
             <argument type="tagged" tag="frosh_webp.webp_encoder"/>
         </service>
 
-        <service id="frosh_webp.services.webp_encoders.php_gd" class="FroshWebP\Services\WebpEncoders\PhpGd">
+        <service id="FroshWebP\Services\WebpEncoders\PhpGd">
             <tag name="frosh_webp.webp_encoder" priority="100"/>
         </service>
 
-        <service id="frosh_webp.services.webp_encoders.google_binary" class="FroshWebP\Services\WebpEncoders\GoogleBinary">
-            <tag name="frosh_webp.webp_encoder" priority="200" />
-            <argument type="string">%shyim_web_p.cached_download_dir%</argument>
+        <service id="FroshWebP\Services\WebpEncoders\GoogleBinary">
+            <tag name="frosh_webp.webp_encoder" priority="200"/>
+            <argument type="string">%frosh_web_p.cached_download_dir%</argument>
         </service>
 
-        <service id="frosh_web_p.components.inheritance" class="FroshWebP\Components\Inheritance" decorates="theme_inheritance">
+        <service id="frosh_web_p.components.inheritance" class="FroshWebP\Components\Inheritance"
+                 decorates="theme_inheritance">
             <argument type="service" id="frosh_web_p.components.inheritance.inner"/>
             <argument type="service" id="dbal_connection"/>
             <argument type="service" id="shopware_media.media_service"/>

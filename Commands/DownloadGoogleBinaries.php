@@ -106,7 +106,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
      */
     private function installLinux(SymfonyStyle $style): int
     {
-        $binFolder = $this->container->getParameter('shyim_web_p.cached_download_dir') . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
+        $binFolder = $this->container->getParameter('frosh_web_p.cached_download_dir') . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
         $binFile = $binFolder . 'cwebp';
 
         if (!file_exists($binFolder) && !mkdir($binFolder, 07777, true) && !is_dir($binFolder)) {
@@ -123,7 +123,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
         chmod($binFile, 01774);
 
-        $cacheDownloadDir = $this->container->getParameter('shyim_web_p.cached_download_dir');
+        $cacheDownloadDir = $this->container->getParameter('frosh_web_p.cached_download_dir');
 
         $style->success(sprintf('Successfully installed cwebp to %s/bin/cwebp', $cacheDownloadDir));
 
@@ -148,7 +148,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
             return 3;
         }
 
-        $cacheDownloadDir = $this->container->getParameter('shyim_web_p.cached_download_dir');
+        $cacheDownloadDir = $this->container->getParameter('frosh_web_p.cached_download_dir');
         $downloadDir = $downloadedPackage . '.d';
         $cwebpPath = $downloadDir . DIRECTORY_SEPARATOR . $packageDirectory . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'cwebp';
         $package = new PharData($downloadedPackage, null, null, Phar::TAR | Phar::GZ);
