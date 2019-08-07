@@ -2,7 +2,9 @@
 
 namespace FroshWebP\Services\WebpEncoders;
 
+use Exception;
 use FroshWebP\Components\WebpEncoderInterface;
+use RuntimeException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
@@ -48,7 +50,7 @@ class GoogleBinary implements WebpEncoderInterface
             $arguments = [
                 $this->getGoogleWebpConverterPath(),
                 '-q',
-                (string) $quality,
+                (string)$quality,
                 $src,
                 '-o',
                 $dst,
@@ -58,7 +60,7 @@ class GoogleBinary implements WebpEncoderInterface
             $process->run();
 
             if ($process->getExitCode() !== 0) {
-                throw new \RuntimeException($process->getErrorOutput());
+                throw new RuntimeException($process->getErrorOutput());
             }
 
             return file_get_contents($dst);
@@ -89,13 +91,13 @@ class GoogleBinary implements WebpEncoderInterface
             $process->run();
 
             return $process->getExitCode() === 0;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
 
-    /** @return string */
-    protected function getGoogleWebpConverterPath()
+    /** @return null|string */
+    protected function getGoogleWebpConverterPath(): ?string
     {
         return (new ExecutableFinder())->find('cwebp', null, [$this->cachedDownloadDir . DIRECTORY_SEPARATOR . 'bin']);
     }

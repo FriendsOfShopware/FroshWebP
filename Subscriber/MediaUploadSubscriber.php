@@ -6,13 +6,14 @@ use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
 use FroshWebP\Services\WebpEncoderFactory;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
+use Shopware\Models\Media\Media;
 
 /**
  * Class MediaUploadSubscriber
  */
 class MediaUploadSubscriber implements SubscriberInterface
 {
-    const CAN_HANDLE_EXTENSIONS = [
+    private const CAN_HANDLE_EXTENSIONS = [
         'jpg',
         'jpeg',
         'png',
@@ -36,8 +37,8 @@ class MediaUploadSubscriber implements SubscriberInterface
      * MediaUploadSubscriber constructor.
      *
      * @param MediaServiceInterface $mediaService
-     * @param WebpEncoderFactory    $encoderFactory
-     * @param array                 $config
+     * @param WebpEncoderFactory $encoderFactory
+     * @param array $config
      */
     public function __construct(MediaServiceInterface $mediaService, WebpEncoderFactory $encoderFactory, array $config)
     {
@@ -60,14 +61,14 @@ class MediaUploadSubscriber implements SubscriberInterface
     /**
      * @param Enlight_Event_EventArgs $args
      */
-    public function onFileRemoved(\Enlight_Event_EventArgs $args)
+    public function onFileRemoved(Enlight_Event_EventArgs $args): void
     {
-        /** @var \Shopware\Models\Media\Media $media */
+        /** @var Media $media */
         $media = $args->get('entity');
 
         $extension = strtolower($media->getExtension());
 
-        if (!in_array($extension, self::CAN_HANDLE_EXTENSIONS)) {
+        if (!in_array($extension, self::CAN_HANDLE_EXTENSIONS, true)) {
             return;
         }
 
@@ -86,16 +87,16 @@ class MediaUploadSubscriber implements SubscriberInterface
     /**
      * @param Enlight_Event_EventArgs $args
      */
-    public function onFileUploaded(Enlight_Event_EventArgs $args)
+    public function onFileUploaded(Enlight_Event_EventArgs $args): void
     {
         $runnableEncoders = WebpEncoderFactory::onlyRunnable($this->encoderFactory->getEncoders());
 
         if (($encoder = current($runnableEncoders)) !== false) {
-            /** @var \Shopware\Models\Media\Media $media */
+            /** @var Media $media */
             $media = $args->get('entity');
             $extension = strtolower($media->getExtension());
 
-            if (!in_array($extension, self::CAN_HANDLE_EXTENSIONS)) {
+            if (!in_array($extension, self::CAN_HANDLE_EXTENSIONS, true)) {
                 return;
             }
 

@@ -55,7 +55,7 @@
             <argument type="service" id="models"/>
             <argument type="service" id="shopware_media.media_service"/>
             <argument type="service" id="frosh_webp.services.webp_encoder_factory"/>
-            <argument type="service" id="frosh_webp.config" />
+            <argument type="service" id="frosh_webp.config"/>
             <tag name="console.command" command="frosh:webp:generate"/>
         </service>
 
@@ -67,16 +67,12 @@
             <tag name="console.command" command="frosh:webp:status"/>
         </service>
 
-        <service id="frosh_webp.collections.webp_encoders" class="Doctrine\Common\Collections\ArrayCollection">
-            <argument type="collection"/>
-        </service>
-
         <service id="frosh_webp.services.webp_encoder_factory" class="FroshWebP\Services\WebpEncoderFactory">
-            <argument type="service" id="frosh_webp.collections.webp_encoders"/>
+            <argument type="tagged" tag="frosh_webp.webp_encoder"/>
         </service>
 
         <service id="frosh_webp.services.webp_encoders.php_gd" class="FroshWebP\Services\WebpEncoders\PhpGd">
-            <tag name="frosh_webp.webp_encoder" priority="100" />
+            <tag name="frosh_webp.webp_encoder" priority="100"/>
         </service>
 
         <service id="frosh_webp.services.webp_encoders.google_binary" class="FroshWebP\Services\WebpEncoders\GoogleBinary">

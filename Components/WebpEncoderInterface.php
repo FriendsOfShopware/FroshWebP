@@ -13,7 +13,7 @@ interface WebpEncoderInterface
 
     /**
      * @param resource $image
-     * @param int      $quality
+     * @param int $quality
      *
      * @return string
      */

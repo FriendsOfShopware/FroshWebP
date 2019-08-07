@@ -2,8 +2,8 @@
 
 namespace FroshWebP\Services;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use FroshWebP\Components\WebpEncoderInterface;
+use Traversable;
 
 /**
  * Class WebpEncoderFactory
@@ -18,17 +18,17 @@ class WebpEncoderFactory
 
     /**
      * WebpEncoderFactory constructor.
-     * @param ArrayCollection $encoders
+     * @param Traversable $encoders
      */
-    public function __construct(ArrayCollection $encoders)
+    public function __construct(Traversable $encoders)
     {
-        $this->encoders = $encoders->toArray();
+        $this->encoders = iterator_to_array($encoders);
     }
 
     /**
      * @return WebpEncoderInterface[]
      */
-    public function getEncoders()
+    public function getEncoders(): array
     {
         return $this->encoders;
     }
@@ -38,11 +38,11 @@ class WebpEncoderFactory
      *
      * @return WebpEncoderInterface[]
      */
-    public static function onlyRunnable(array $encoders)
+    public static function onlyRunnable(array $encoders): array
     {
         return array_filter(
             $encoders,
-            function (WebpEncoderInterface $encoder) {
+            static function (WebpEncoderInterface $encoder) {
                 return $encoder->isRunnable();
             }
         );

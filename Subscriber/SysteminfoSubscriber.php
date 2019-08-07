@@ -3,7 +3,9 @@
 namespace FroshWebP\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
+use Enlight_Event_EventArgs;
 use FroshWebP\Services\WebpEncoderFactory;
+use Shopware_Controllers_Backend_Systeminfo;
 
 /**
  * Class SysteminfoSubscriber
@@ -37,12 +39,12 @@ class SysteminfoSubscriber implements SubscriberInterface
     }
 
     /**
-     * @param \Enlight_Event_EventArgs $args
+     * @param Enlight_Event_EventArgs $args
      * @return bool
      */
-    public function onWebpEncoders(\Enlight_Event_EventArgs $args)
+    public function onWebpEncoders(Enlight_Event_EventArgs $args): bool
     {
-        /** @var \Shopware_Controllers_Backend_Systeminfo $subject */
+        /** @var Shopware_Controllers_Backend_Systeminfo $subject */
         $subject = $args->getSubject();
 
         $results = [];
@@ -62,11 +64,11 @@ class SysteminfoSubscriber implements SubscriberInterface
     }
 
     /**
-     * @param \Enlight_Event_EventArgs $args
+     * @param Enlight_Event_EventArgs $args
      */
-    public function onPostDispatchSystemInfo(\Enlight_Event_EventArgs $args)
+    public function onPostDispatchSystemInfo(Enlight_Event_EventArgs $args): void
     {
-        /** @var \Shopware_Controllers_Backend_Systeminfo $subject */
+        /** @var Shopware_Controllers_Backend_Systeminfo $subject */
         $subject = $args->getSubject();
 
         if ($subject->Request()->getActionName() !== 'load') {

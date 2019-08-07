@@ -29,7 +29,7 @@ class LegacyStructConverterSubscriber implements SubscriberInterface
      *
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
-    public function onConvertMedia(Enlight_Event_EventArgs $args)
+    public function onConvertMedia(Enlight_Event_EventArgs $args): void
     {
         $data = $args->getReturn();
 
@@ -59,7 +59,7 @@ class LegacyStructConverterSubscriber implements SubscriberInterface
      *
      * @return string
      */
-    private function getSourceSet(Thumbnail $thumbnail)
+    private function getSourceSet(Thumbnail $thumbnail): string
     {
         if ($thumbnail->getRetinaSource() !== null) {
             return sprintf('%s, %s 2x', $thumbnail->getSource(), $thumbnail->getRetinaSource());

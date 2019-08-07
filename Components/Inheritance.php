@@ -3,7 +3,11 @@
 namespace FroshWebP\Components;
 
 use Doctrine\DBAL\Connection;
+use Enlight_Event_Exception;
+use Exception;
+use PDO;
 use Shopware\Bundle\MediaBundle\MediaService;
+use Shopware\Components\Theme;
 use Shopware\Components\Theme\Inheritance as InheritanceCore;
 use Shopware\Models\Shop;
 
@@ -42,7 +46,7 @@ class Inheritance extends InheritanceCore
     /**
      * @param Shop\Template $template
      * @return array|mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function buildInheritances(Shop\Template $template)
     {
@@ -63,7 +67,7 @@ class Inheritance extends InheritanceCore
      * @param Shop\Shop $shop
      * @param bool $lessCompatible
      * @return array
-     * @throws \Enlight_Event_Exception
+     * @throws Enlight_Event_Exception
      */
     public function buildConfig(Shop\Template $template, Shop\Shop $shop, $lessCompatible = true)
     {
@@ -79,7 +83,7 @@ class Inheritance extends InheritanceCore
     /**
      * @param Shop\Template $template
      * @return array|mixed
-     * @throws \Enlight_Event_Exception
+     * @throws Enlight_Event_Exception
      */
     public function getTemplateDirectories(Shop\Template $template)
     {
@@ -89,7 +93,7 @@ class Inheritance extends InheritanceCore
     /**
      * @param Shop\Template $template
      * @return array|mixed
-     * @throws \Enlight_Event_Exception
+     * @throws Enlight_Event_Exception
      */
     public function getSmartyDirectories(Shop\Template $template)
     {
@@ -99,7 +103,7 @@ class Inheritance extends InheritanceCore
     /**
      * @param Shop\Template $template
      * @return mixed|string[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function getTemplateCssFiles(Shop\Template $template)
     {
@@ -109,7 +113,7 @@ class Inheritance extends InheritanceCore
     /**
      * @param Shop\Template $template
      * @return mixed|string[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function getTemplateJavascriptFiles(Shop\Template $template)
     {
@@ -118,8 +122,8 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @return mixed|\Shopware\Components\Theme
-     * @throws \Exception
+     * @return mixed|Theme
+     * @throws Exception
      */
     public function getTheme(Shop\Template $template)
     {
@@ -131,7 +135,7 @@ class Inheritance extends InheritanceCore
      * @param Shop\Shop $shop
      * @return array
      */
-    private function getWebpLogos(Shop\Template $template, Shop\Shop $shop)
+    private function getWebpLogos(Shop\Template $template, Shop\Shop $shop): array
     {
         $logos = $this->connection->createQueryBuilder()
             ->addSelect('element.name')
@@ -150,7 +154,7 @@ class Inheritance extends InheritanceCore
             ->setParameter('templateId', $template->getId())
             ->setParameter('shopId', $shop->getMain() ? $shop->getMain()->getId() : $shop->getId())
             ->execute()
-            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+            ->fetchAll(PDO::FETCH_KEY_PAIR);
 
         $result = [];
         foreach ($logos as $key => $value) {

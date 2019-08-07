@@ -4,6 +4,7 @@ namespace FroshWebP\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Action;
+use Enlight_Event_EventArgs;
 
 /**
  * Class TemplateSubscriber
@@ -39,11 +40,11 @@ class TemplateSubscriber implements SubscriberInterface
     }
 
     /**
-     * @param \Enlight_Event_EventArgs $args
+     * @param Enlight_Event_EventArgs $args
      *
      * @author Soner Sayakci <s.sayakci@gmail.com>
      */
-    public function addTemplateDir(\Enlight_Event_EventArgs $args)
+    public function addTemplateDir(Enlight_Event_EventArgs $args): void
     {
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->get('subject');
