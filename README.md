@@ -1,6 +1,7 @@
 # WebP Support for Shopware
 
 [![Join the chat at https://gitter.im/FriendsOfShopware/Lobby](https://badges.gitter.im/FriendsOfShopware/Lobby.svg)](https://gitter.im/FriendsOfShopware/Lobby)
+[![Download @ Community Store](https://img.shields.io/badge/endpoint.svg?url=https://api.friendsofshopware.de/FroshWebP)](https://store.shopware.com/en/frosh50145464405f/webp-support.html)
 
 [WebP Browser-Support](http://caniuse.com/#search=webp)
 
