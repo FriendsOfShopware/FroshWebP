@@ -16,6 +16,7 @@ Bekannte Hoster, die Webp im Standard unterstützen:
 
 * Timmehosting
 * Profihost
+* enerSpace
 
 Das Plugin wird von der Github Organization [FriendsOfShopware](https://github.com/FriendsOfShopware/) entwickelt.
 Maintainer des Plugin ist [Soner Sayakci](https://github.com/shyim).
