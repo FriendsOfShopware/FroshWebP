@@ -18,6 +18,7 @@ Known hosters who can webp in without hassle:
 
 * Timmehosting
 * Profihost
+* enerSpace
 
 The plugin is provided by the Github Organization [FriendsOfShopware](https://github.com/FriendsOfShopware/).
 Maintainer of the plugin is [Soner Sayakci](https://github.com/shyim).
