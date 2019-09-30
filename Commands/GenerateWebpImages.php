@@ -15,6 +15,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Throwable;
 
 /**
  * Class GenerateWebpImages
@@ -46,8 +47,8 @@ class GenerateWebpImages extends ShopwareCommand
     /**
      * GenerateWebpImages constructor.
      *
-     * @param ModelManager $manager
-     * @param MediaService $mediaService
+     * @param ModelManager       $manager
+     * @param MediaService       $mediaService
      * @param WebpEncoderFactory $webpEncoder
      * @param $webpConfig
      */
@@ -69,8 +70,8 @@ class GenerateWebpImages extends ShopwareCommand
             ->setDescription('Generate webp images for all orginal images. Can also run as stack-execution,
             for specific folders only and with excluded folders')
             ->addOption('stack', 's', InputOption::VALUE_OPTIONAL, 'process amount per iteration')
-            ->addOption('offset', 'o', InputOption::VALUE_OPTIONAL, 'process amount per iteration')
-            ->addOption('force', 'f', InputOption::VALUE_NONE, 'forces recreation')
+            ->addOption('offset', 'o', InputOption::VALUE_OPTIONAL, 'process amount per iteration', 0)
+            ->addOption('force', 'f', InputOption::VALUE_NONE, 'forces recreation', false)
             ->addOption('setCollection', 'c', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'only generates medias for specified collection. Example: `frosh:webp:generate -c 12`')
             ->addOption('ignoreCollection', 'i', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'ignores specified collection');
@@ -100,17 +101,17 @@ class GenerateWebpImages extends ShopwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $mediaCount = $this->webpRepository->countMedias($input->getOption('setCollection'), $input->getOption('ignoreCollection'));
-        $offset = $input->getOption('offset') ? $input->getOption('offset') : 0;
-        $stack = $input->getOption('stack') ? $input->getOption('stack') : $mediaCount;
+        $offset = $input->getOption('offset');
+        $stack = $input->getOption('stack') ?? $mediaCount;
         $output->writeln('STACK: ' . $stack);
         $output->writeln('OFFSET: ' . $offset);
 
         $arguments = new Arguments(
-            $input->getOption('setCollection') ? $input->getOption('setCollection') : [],
-            $input->getOption('ignoreCollection') ? $input->getOption('ignoreCollection') : [],
+            $input->getOption('setCollection') ?? [],
+            $input->getOption('ignoreCollection') ?? [],
             $stack,
             $offset,
-            $input->getOption('force') ? $input->getOption('force') : false
+            $input->getOption('force')
         );
 
         $this->buildImageStack($output, $mediaCount, $arguments);
@@ -118,10 +119,10 @@ class GenerateWebpImages extends ShopwareCommand
 
     /**
      * @param OutputInterface $output
-     * @param int $mediaCount
-     * @param Arguments $arguments
+     * @param int             $mediaCount
+     * @param Arguments       $arguments
      */
-    protected function buildImageStack(OutputInterface $output, $mediaCount, Arguments $arguments)
+    protected function buildImageStack(OutputInterface $output, $mediaCount, Arguments $arguments): void
     {
         for ($i = $arguments->getOffset(); $i <= $mediaCount + $arguments->getStack(); $i += $arguments->getStack()) {
             $stackMedia = $this->webpRepository->findByOffset($arguments->getStack(), $i,
@@ -139,12 +140,11 @@ class GenerateWebpImages extends ShopwareCommand
      * @param array           $stackMedia
      * @param ProgressBar     $progress
      */
-    protected function buildImagesByStack($force, OutputInterface $output, $stackMedia, ProgressBar $progress)
+    protected function buildImagesByStack($force, OutputInterface $output, $stackMedia, ProgressBar $progress): void
     {
         foreach ($stackMedia as $item) {
             $webpPath = str_replace($item['extension'], 'webp', $item['path']);
-            if ($this->mediaService->has($webpPath)
-                && !$force) {
+            if (!$force && $this->mediaService->has($webpPath)) {
                 $progress->advance();
                 continue;
             }
@@ -157,9 +157,7 @@ class GenerateWebpImages extends ShopwareCommand
                 );
                 imagedestroy($im);
                 $this->mediaService->write($webpPath, $newImgContent);
-            } catch (\Exception $e) {
-                $output->writeln($item['path'] . ' => ' . $e->getMessage());
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $output->writeln($item['path'] . ' => ' . $e->getMessage());
             }
             $progress->advance();

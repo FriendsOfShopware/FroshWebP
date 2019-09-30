@@ -6,6 +6,7 @@ use Phar;
 use PharData;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use RuntimeException;
 use Shopware\Commands\ShopwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -13,7 +14,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class DownloadGoogleBinaries
- * @package FroshWebP\Commands
  */
 class DownloadGoogleBinaries extends ShopwareCommand
 {
@@ -21,8 +21,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
     {
         $this
             ->setName('frosh:webp:download-google-binaries')
-            ->setDescription('Downloads google binaries that can convert images to webp')
-        ;
+            ->setDescription('Downloads google binaries that can convert images to webp');
     }
 
     /**
@@ -57,7 +56,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
     /**
      * @return bool
      */
-    protected function isLinux()
+    protected function isLinux(): bool
     {
         return strtolower(PHP_OS) === 'linux';
     }
@@ -65,7 +64,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
     /**
      * @return bool
      */
-    protected function isMac()
+    protected function isMac(): bool
     {
         return strtolower(PHP_OS) === 'darwin';
     }
@@ -73,16 +72,15 @@ class DownloadGoogleBinaries extends ShopwareCommand
     /**
      * @return bool
      */
-    protected function is64bit()
+    protected function is64bit(): bool
     {
         return strpos(php_uname('m'), '64') !== false;
     }
 
-
     /**
      * @param $directory
      */
-    protected function clearDirectory($directory)
+    protected function clearDirectory($directory): void
     {
         if (file_exists($directory)) {
             $it = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS);
@@ -102,15 +100,16 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
     /**
      * @param SymfonyStyle $style
+     *
      * @return int
      */
-    private function installLinux(SymfonyStyle $style)
+    private function installLinux(SymfonyStyle $style): int
     {
-        $binFolder = $this->container->getParameter('shyim_web_p.cached_download_dir') . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
+        $binFolder = $this->container->getParameter('frosh_web_p.cached_download_dir') . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
         $binFile = $binFolder . 'cwebp';
 
-        if (!file_exists($binFolder)) {
-            mkdir($binFolder, 07777, true);
+        if (!file_exists($binFolder) && !mkdir($binFolder, 07777, true) && !is_dir($binFolder)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $binFolder));
         }
 
         copy('https://github.com/FriendsOfShopware/FroshWebP/releases/download/1.0.1/cwebp', $binFile);
@@ -123,7 +122,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
         chmod($binFile, 01774);
 
-        $cacheDownloadDir = $this->container->getParameter('shyim_web_p.cached_download_dir');
+        $cacheDownloadDir = $this->container->getParameter('frosh_web_p.cached_download_dir');
 
         $style->success(sprintf('Successfully installed cwebp to %s/bin/cwebp', $cacheDownloadDir));
 
@@ -132,9 +131,10 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
     /**
      * @param SymfonyStyle $style
+     *
      * @return int
      */
-    private function installMac(SymfonyStyle $style)
+    private function installMac(SymfonyStyle $style): int
     {
         $packageDirectory = 'libwebp-1.0.1-mac-10.13';
 
@@ -148,7 +148,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
             return 3;
         }
 
-        $cacheDownloadDir = $this->container->getParameter('shyim_web_p.cached_download_dir');
+        $cacheDownloadDir = $this->container->getParameter('frosh_web_p.cached_download_dir');
         $downloadDir = $downloadedPackage . '.d';
         $cwebpPath = $downloadDir . DIRECTORY_SEPARATOR . $packageDirectory . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'cwebp';
         $package = new PharData($downloadedPackage, null, null, Phar::TAR | Phar::GZ);

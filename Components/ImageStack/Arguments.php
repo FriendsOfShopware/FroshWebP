@@ -4,43 +4,42 @@ namespace FroshWebP\Components\ImageStack;
 
 /**
  * Class Arguments
- * @package FroshWebP\Components\ImageStack
  */
 class Arguments
 {
     /**
      * @var array
      */
-    private $collectionsToUse = [];
+    private $collectionsToUse;
 
     /**
      * @var array
      */
-    private $collectionsToIgnore = [];
+    private $collectionsToIgnore;
 
     /**
      * @var int
      */
-    private $stack = 0;
+    private $stack;
 
     /**
      * @var int
      */
-    private $offset = 0;
+    private $offset;
 
     /**
      * @var bool
      */
-    private $force = false;
+    private $force;
 
     /**
      * Arguments constructor.
      *
      * @param array $collectionsToUse
      * @param array $collectionsToIgnore
-     * @param int $stack
-     * @param int $offset
-     * @param bool $force
+     * @param int   $stack
+     * @param int   $offset
+     * @param bool  $force
      */
     public function __construct($collectionsToUse, $collectionsToIgnore, $stack, $offset, $force)
     {
@@ -54,7 +53,7 @@ class Arguments
     /**
      * @return array
      */
-    public function getCollectionsToUse()
+    public function getCollectionsToUse(): array
     {
         return $this->collectionsToUse;
     }
@@ -62,7 +61,7 @@ class Arguments
     /**
      * @return array
      */
-    public function getCollectionsToIgnore()
+    public function getCollectionsToIgnore(): array
     {
         return $this->collectionsToIgnore;
     }
@@ -70,7 +69,7 @@ class Arguments
     /**
      * @return int
      */
-    public function getStack()
+    public function getStack(): int
     {
         return $this->stack;
     }
@@ -78,7 +77,7 @@ class Arguments
     /**
      * @return int
      */
-    public function getOffset()
+    public function getOffset(): int
     {
         return $this->offset;
     }
@@ -86,7 +85,7 @@ class Arguments
     /**
      * @return bool
      */
-    public function isForce()
+    public function isForce(): bool
     {
         return $this->force;
     }

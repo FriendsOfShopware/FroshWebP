@@ -6,7 +6,6 @@ use FroshWebP\Components\WebpEncoderInterface;
 
 /**
  * Class PhpGd
- * @package FroshWebP\Services\WebpEncoders
  */
 class PhpGd implements WebpEncoderInterface
 {
@@ -28,10 +27,8 @@ class PhpGd implements WebpEncoderInterface
         if (ob_get_length() % 2 === 1) {
             echo "\0";
         }
-        $content = ob_get_contents();
-        ob_end_clean();
 
-        return $content;
+        return ob_get_clean();
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace FroshWebP\Repositories;
 
+use Doctrine\ORM\QueryBuilder;
 use Shopware\Models\Media\Media;
 use Shopware\Models\Media\Repository;
 
@@ -11,9 +12,9 @@ use Shopware\Models\Media\Repository;
 class WebPMediaRepository extends Repository
 {
     /**
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function findImages()
+    public function findImages(): QueryBuilder
     {
         return $this->getEntityManager()->createQueryBuilder()
             ->select('media')
@@ -26,9 +27,10 @@ class WebPMediaRepository extends Repository
     /**
      * @param array $useCollections
      * @param array $ignoreCollections
+     *
      * @return int
      */
-    public function countMedias($useCollections = [], $ignoreCollections = [])
+    public function countMedias($useCollections = [], $ignoreCollections = []): int
     {
         $medias = $this->findImages();
         if (!empty($useCollections)) {
@@ -50,11 +52,11 @@ class WebPMediaRepository extends Repository
     }
 
     /**
-     * @param int $stack
-     * @param int $offset
-     *
+     * @param int   $stack
+     * @param int   $offset
      * @param array $useCollections
      * @param array $ignoreCollections
+     *
      * @return mixed
      */
     public function findByOffset($stack, $offset, $useCollections = [], $ignoreCollections = [])

@@ -3,6 +3,8 @@
 namespace FroshWebP\Components;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
+use Exception;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
 use Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydrator\AttributeHydrator;
 use Shopware\Bundle\StoreFrontBundle\Struct\Attribute;
@@ -38,10 +40,10 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     private $database;
 
     /**
-     * @param AttributeHydrator                      $attributeHydrator
-     * @param Manager $thumbnailManager
-     * @param MediaServiceInterface                  $mediaService
-     * @param Connection                             $database
+     * @param AttributeHydrator     $attributeHydrator
+     * @param Manager               $thumbnailManager
+     * @param MediaServiceInterface $mediaService
+     * @param Connection            $database
      */
     public function __construct(AttributeHydrator $attributeHydrator, Manager $thumbnailManager, MediaServiceInterface $mediaService, Connection $database)
     {
@@ -54,8 +56,9 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     /**
      * @param array $data
      *
+     * @throws DBALException
+     *
      * @return Media
-     * @throws \Doctrine\DBAL\DBALException
      */
     public function hydrate(array $data)
     {
@@ -106,8 +109,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
             $media->setHeight((int) $data['__media_height']);
         }
 
-        if ($media->getType() == Media::TYPE_IMAGE
-            && $data['__mediaSettings_create_thumbnails']) {
+        if ($data['__mediaSettings_create_thumbnails'] && $media->getType() === Media::TYPE_IMAGE) {
             $media->setThumbnails(
                 $this->getMediaThumbnails($data)
             );
@@ -123,8 +125,9 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     /**
      * @param array $data
      *
+     * @throws Exception
+     *
      * @return Media
-     * @throws \Exception
      */
     public function hydrateProductImage(array $data)
     {
@@ -134,7 +137,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
         $data = array_merge($data, $translation);
 
         $media->setName($data['__image_description']);
-        $media->setPreview((bool) ($data['__image_main'] == 1));
+        $media->setPreview((bool) $data['__image_main']);
 
         if (!empty($data['__imageAttribute_id'])) {
             $this->attributeHydrator->addAttribute($media, $data, 'imageAttribute', 'image', 'image');
@@ -149,9 +152,9 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
      *
      * @return bool
      */
-    private function isUpdateRequired(Media $media, array $data)
+    private function isUpdateRequired(Media $media, array $data): bool
     {
-        if ($media->getType() != Media::TYPE_IMAGE) {
+        if ($media->getType() !== Media::TYPE_IMAGE) {
             return false;
         }
         if (!array_key_exists('__media_width', $data)) {
@@ -170,10 +173,11 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     /**
      * @param array $data Contains the array data for the media
      *
+     * @throws Exception
+     *
      * @return array
-     * @throws \Exception
      */
-    private function getMediaThumbnails(array $data)
+    private function getMediaThumbnails(array $data): array
     {
         $thumbnailData = $this->thumbnailManager->getMediaThumbnails(
             $data['__media_name'],
@@ -219,12 +223,13 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     /**
      * @param array $data
      *
+     * @throws DBALException
+     *
      * @return array
-     * @throws \Doctrine\DBAL\DBALException
      */
-    private function updateMedia(array $data)
+    private function updateMedia(array $data): array
     {
-        list($width, $height) = getimagesizefromstring($this->mediaService->read($data['__media_path']));
+        [$width, $height] = getimagesizefromstring($this->mediaService->read($data['__media_path']));
         $this->database->executeUpdate(
             'UPDATE s_media SET width = :width, height = :height WHERE id = :id',
             [

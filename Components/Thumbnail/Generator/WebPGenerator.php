@@ -2,16 +2,18 @@
 
 namespace FroshWebP\Components\Thumbnail\Generator;
 
+use Exception;
 use FroshWebP\Components\WebpEncoderInterface;
 use FroshWebP\Services\WebpEncoderFactory;
+use RuntimeException;
 use Shopware\Bundle\MediaBundle\Exception\OptimizerNotFoundException;
 use Shopware\Bundle\MediaBundle\MediaServiceInterface;
 use Shopware\Bundle\MediaBundle\OptimizerServiceInterface;
 use Shopware\Components\Thumbnail\Generator\GeneratorInterface;
+use Shopware_Components_Config;
 
 /**
  * Class WebPGenerator
- * @package FroshWebP\Components\Thumbnail\Generator
  */
 class WebPGenerator implements GeneratorInterface
 {
@@ -37,13 +39,13 @@ class WebPGenerator implements GeneratorInterface
     private $webpEncoders;
 
     /**
-     * @param \Shopware_Components_Config $config
-     * @param MediaServiceInterface       $mediaService
-     * @param OptimizerServiceInterface   $optimizerService
-     * @param WebpEncoderFactory          $encoderFactory
+     * @param Shopware_Components_Config $config
+     * @param MediaServiceInterface      $mediaService
+     * @param OptimizerServiceInterface  $optimizerService
+     * @param WebpEncoderFactory         $encoderFactory
      */
     public function __construct(
-        \Shopware_Components_Config $config,
+        Shopware_Components_Config $config,
         MediaServiceInterface $mediaService,
         OptimizerServiceInterface $optimizerService,
         WebpEncoderFactory $encoderFactory
@@ -60,7 +62,7 @@ class WebPGenerator implements GeneratorInterface
     public function createThumbnail($imagePath, $destination, $maxWidth, $maxHeight, $keepProportions = false, $quality = 90)
     {
         if (!$this->mediaService->has($imagePath)) {
-            throw new \Exception('File not found: ' . $imagePath);
+            throw new Exception('File not found: ' . $imagePath);
         }
 
         $content = $this->mediaService->read($imagePath);
@@ -93,7 +95,7 @@ class WebPGenerator implements GeneratorInterface
         $this->saveImage($destination, $newImage, $quality);
         $this->optimizeImage($destination);
 
-        if (is_null($this->webpEncoders)) {
+        if ($this->webpEncoders === null) {
             $this->webpEncoders = WebpEncoderFactory::onlyRunnable($this->webpEncoderFactory->getEncoders());
         }
 
@@ -116,7 +118,7 @@ class WebPGenerator implements GeneratorInterface
      *
      * @return array
      */
-    private function getOriginalImageSize($imageResource)
+    private function getOriginalImageSize($imageResource): array
     {
         return [
             'width' => imagesx($imageResource),
@@ -130,14 +132,14 @@ class WebPGenerator implements GeneratorInterface
      * method for the image extension
      *
      * @param string $fileContent
-     *
      * @param $imagePath
+     *
      * @return resource
      */
     private function createImageResource($fileContent, $imagePath)
     {
         if (!$image = @imagecreatefromstring($fileContent)) {
-            throw new \RuntimeException(sprintf('Image is not in a recognized format (%s)', $imagePath));
+            throw new RuntimeException(sprintf('Image is not in a recognized format (%s)', $imagePath));
         }
 
         return $image;
@@ -150,7 +152,7 @@ class WebPGenerator implements GeneratorInterface
      *
      * @return string
      */
-    private function getImageExtension($path)
+    private function getImageExtension($path): string
     {
         $pathInfo = pathinfo($path);
 
@@ -166,7 +168,7 @@ class WebPGenerator implements GeneratorInterface
      *
      * @return array
      */
-    private function calculateProportionalThumbnailSize(array $originalSize, $width, $height)
+    private function calculateProportionalThumbnailSize(array $originalSize, $width, $height): array
     {
         // Source image size
         $srcWidth = $originalSize['width'];
@@ -243,18 +245,18 @@ class WebPGenerator implements GeneratorInterface
      * @param array    $newSize
      * @param resource $newImage
      */
-    private function fixGdImageBlur($newSize, $newImage)
+    private function fixGdImageBlur($newSize, $newImage): void
     {
         $colorWhite = imagecolorallocate($newImage, 255, 255, 255);
         $processHeight = $newSize['height'] + 0;
         $processWidth = $newSize['width'] + 0;
-        for ($y = 0; $y < ($processHeight); ++$y) {
-            for ($x = 0; $x < ($processWidth); ++$x) {
+        for ($y = 0; $y < $processHeight; ++$y) {
+            for ($x = 0; $x < $processWidth; ++$x) {
                 $colorat = imagecolorat($newImage, $x, $y);
                 $r = ($colorat >> 16) & 0xFF;
                 $g = ($colorat >> 8) & 0xFF;
                 $b = $colorat & 0xFF;
-                if (($r == 253 && $g == 253 && $b == 253) || ($r == 254 && $g == 254 && $b == 254)) {
+                if (($r === 253 && $g === 253 && $b === 253) || ($r === 254 && $g === 254 && $b === 254)) {
                     imagesetpixel($newImage, $x, $y, $colorWhite);
                 }
             }
@@ -266,7 +268,7 @@ class WebPGenerator implements GeneratorInterface
      * @param resource $newImage
      * @param int      $quality     - JPEG quality
      */
-    private function saveImage($destination, $newImage, $quality)
+    private function saveImage($destination, $newImage, $quality): void
     {
         ob_start();
         // saves the image information into a specific file extension
@@ -282,8 +284,7 @@ class WebPGenerator implements GeneratorInterface
                 break;
         }
 
-        $content = ob_get_contents();
-        ob_end_clean();
+        $content = ob_get_clean();
 
         $this->mediaService->write($destination, $content);
     }
@@ -291,7 +292,7 @@ class WebPGenerator implements GeneratorInterface
     /**
      * @param string $destination
      */
-    private function optimizeImage($destination)
+    private function optimizeImage($destination): void
     {
         $tmpFilename = $this->downloadImage($destination);
 
@@ -309,7 +310,7 @@ class WebPGenerator implements GeneratorInterface
      *
      * @return string
      */
-    private function downloadImage($destination)
+    private function downloadImage($destination): string
     {
         $tmpFilename = tempnam(sys_get_temp_dir(), 'optimize_image');
         $handle = fopen($tmpFilename, 'wb');
@@ -326,7 +327,7 @@ class WebPGenerator implements GeneratorInterface
      * @param string $destination
      * @param string $tmpFilename
      */
-    private function uploadImage($destination, $tmpFilename)
+    private function uploadImage($destination, $tmpFilename): void
     {
         $fileHandle = fopen($tmpFilename, 'rb');
         $this->mediaService->writeStream($destination, $fileHandle);

@@ -4,7 +4,6 @@ namespace FroshWebP\Components;
 
 /**
  * Interface WebpEncoderInterface
- * @package FroshWebP\Components
  */
 interface WebpEncoderInterface
 {
