@@ -109,7 +109,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
             $media->setHeight((int) $data['__media_height']);
         }
 
-        if ($data['__mediaSettings_create_thumbnails'] && $media->getType() == Media::TYPE_IMAGE) {
+        if ($data['__mediaSettings_create_thumbnails'] && $media->getType() === Media::TYPE_IMAGE) {
             $media->setThumbnails(
                 $this->getMediaThumbnails($data)
             );
