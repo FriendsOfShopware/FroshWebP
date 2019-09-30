@@ -40,10 +40,10 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     private $database;
 
     /**
-     * @param AttributeHydrator $attributeHydrator
-     * @param Manager $thumbnailManager
+     * @param AttributeHydrator     $attributeHydrator
+     * @param Manager               $thumbnailManager
      * @param MediaServiceInterface $mediaService
-     * @param Connection $database
+     * @param Connection            $database
      */
     public function __construct(AttributeHydrator $attributeHydrator, Manager $thumbnailManager, MediaServiceInterface $mediaService, Connection $database)
     {
@@ -56,8 +56,9 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     /**
      * @param array $data
      *
-     * @return Media
      * @throws DBALException
+     *
+     * @return Media
      */
     public function hydrate(array $data)
     {
@@ -67,7 +68,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
         $data = array_merge($data, $translation);
 
         if (isset($data['__media_id'])) {
-            $media->setId((int)$data['__media_id']);
+            $media->setId((int) $data['__media_id']);
         }
 
         if (isset($data['__media_name'])) {
@@ -101,11 +102,11 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
         }
 
         if (isset($data['__media_width'])) {
-            $media->setWidth((int)$data['__media_width']);
+            $media->setWidth((int) $data['__media_width']);
         }
 
         if (isset($data['__media_height'])) {
-            $media->setHeight((int)$data['__media_height']);
+            $media->setHeight((int) $data['__media_height']);
         }
 
         if ($data['__mediaSettings_create_thumbnails'] && $media->getType() == Media::TYPE_IMAGE) {
@@ -124,8 +125,9 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     /**
      * @param array $data
      *
-     * @return Media
      * @throws Exception
+     *
+     * @return Media
      */
     public function hydrateProductImage(array $data)
     {
@@ -135,7 +137,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
         $data = array_merge($data, $translation);
 
         $media->setName($data['__image_description']);
-        $media->setPreview((bool)$data['__image_main']);
+        $media->setPreview((bool) $data['__image_main']);
 
         if (!empty($data['__imageAttribute_id'])) {
             $this->attributeHydrator->addAttribute($media, $data, 'imageAttribute', 'image', 'image');
@@ -171,8 +173,9 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     /**
      * @param array $data Contains the array data for the media
      *
-     * @return array
      * @throws Exception
+     *
+     * @return array
      */
     private function getMediaThumbnails(array $data): array
     {
@@ -220,8 +223,9 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
     /**
      * @param array $data
      *
-     * @return array
      * @throws DBALException
+     *
+     * @return array
      */
     private function updateMedia(array $data): array
     {

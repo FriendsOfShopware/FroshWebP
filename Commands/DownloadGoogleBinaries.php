@@ -14,7 +14,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class DownloadGoogleBinaries
- * @package FroshWebP\Commands
  */
 class DownloadGoogleBinaries extends ShopwareCommand
 {
@@ -26,7 +25,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int
@@ -78,7 +77,6 @@ class DownloadGoogleBinaries extends ShopwareCommand
         return strpos(php_uname('m'), '64') !== false;
     }
 
-
     /**
      * @param $directory
      */
@@ -102,6 +100,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
     /**
      * @param SymfonyStyle $style
+     *
      * @return int
      */
     private function installLinux(SymfonyStyle $style): int
@@ -132,6 +131,7 @@ class DownloadGoogleBinaries extends ShopwareCommand
 
     /**
      * @param SymfonyStyle $style
+     *
      * @return int
      */
     private function installMac(SymfonyStyle $style): int

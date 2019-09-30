@@ -4,7 +4,6 @@ namespace FroshWebP\Components\ImageStack;
 
 /**
  * Class Arguments
- * @package FroshWebP\Components\ImageStack
  */
 class Arguments
 {
@@ -38,9 +37,9 @@ class Arguments
      *
      * @param array $collectionsToUse
      * @param array $collectionsToIgnore
-     * @param int $stack
-     * @param int $offset
-     * @param bool $force
+     * @param int   $stack
+     * @param int   $offset
+     * @param bool  $force
      */
     public function __construct($collectionsToUse, $collectionsToIgnore, $stack, $offset, $force)
     {

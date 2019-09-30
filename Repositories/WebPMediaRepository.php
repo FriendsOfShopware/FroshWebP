@@ -27,6 +27,7 @@ class WebPMediaRepository extends Repository
     /**
      * @param array $useCollections
      * @param array $ignoreCollections
+     *
      * @return int
      */
     public function countMedias($useCollections = [], $ignoreCollections = []): int
@@ -51,11 +52,11 @@ class WebPMediaRepository extends Repository
     }
 
     /**
-     * @param int $stack
-     * @param int $offset
-     *
+     * @param int   $stack
+     * @param int   $offset
      * @param array $useCollections
      * @param array $ignoreCollections
+     *
      * @return mixed
      */
     public function findByOffset($stack, $offset, $useCollections = [], $ignoreCollections = [])

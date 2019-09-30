@@ -7,7 +7,6 @@ use Traversable;
 
 /**
  * Class WebpEncoderFactory
- * @package FroshWebP\Services
  */
 class WebpEncoderFactory
 {
@@ -18,6 +17,7 @@ class WebpEncoderFactory
 
     /**
      * WebpEncoderFactory constructor.
+     *
      * @param Traversable $encoders
      */
     public function __construct(Traversable $encoders)

@@ -10,7 +10,6 @@ use Symfony\Component\Process\Process;
 
 /**
  * Class GoogleBinary
- * @package FroshWebP\Services\WebpEncoders
  */
 class GoogleBinary implements WebpEncoderInterface
 {
@@ -50,7 +49,7 @@ class GoogleBinary implements WebpEncoderInterface
             $arguments = [
                 $this->getGoogleWebpConverterPath(),
                 '-q',
-                (string)$quality,
+                (string) $quality,
                 $src,
                 '-o',
                 $dst,
@@ -96,7 +95,7 @@ class GoogleBinary implements WebpEncoderInterface
         }
     }
 
-    /** @return null|string */
+    /** @return string|null */
     protected function getGoogleWebpConverterPath(): ?string
     {
         return (new ExecutableFinder())->find('cwebp', null, [$this->cachedDownloadDir . DIRECTORY_SEPARATOR . 'bin']);

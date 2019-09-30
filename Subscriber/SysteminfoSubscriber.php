@@ -9,7 +9,6 @@ use Shopware_Controllers_Backend_Systeminfo;
 
 /**
  * Class SysteminfoSubscriber
- * @package FroshWebP\Subscriber
  */
 class SysteminfoSubscriber implements SubscriberInterface
 {
@@ -20,6 +19,7 @@ class SysteminfoSubscriber implements SubscriberInterface
 
     /**
      * SysteminfoSubscriber constructor.
+     *
      * @param WebpEncoderFactory $webpEncoderFactory
      */
     public function __construct(WebpEncoderFactory $webpEncoderFactory)
@@ -40,6 +40,7 @@ class SysteminfoSubscriber implements SubscriberInterface
 
     /**
      * @param Enlight_Event_EventArgs $args
+     *
      * @return bool
      */
     public function onWebpEncoders(Enlight_Event_EventArgs $args): bool

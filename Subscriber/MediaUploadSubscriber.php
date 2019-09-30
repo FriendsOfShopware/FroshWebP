@@ -37,8 +37,8 @@ class MediaUploadSubscriber implements SubscriberInterface
      * MediaUploadSubscriber constructor.
      *
      * @param MediaServiceInterface $mediaService
-     * @param WebpEncoderFactory $encoderFactory
-     * @param array $config
+     * @param WebpEncoderFactory    $encoderFactory
+     * @param array                 $config
      */
     public function __construct(MediaServiceInterface $mediaService, WebpEncoderFactory $encoderFactory, array $config)
     {

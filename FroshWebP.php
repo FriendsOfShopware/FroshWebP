@@ -8,7 +8,6 @@ use Shopware\Components\Plugin\Context\InstallContext;
 
 /**
  * Class FroshWebP
- * @package FroshWebP
  */
 class FroshWebP extends Plugin
 {

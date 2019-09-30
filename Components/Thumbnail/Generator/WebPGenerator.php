@@ -14,7 +14,6 @@ use Shopware_Components_Config;
 
 /**
  * Class WebPGenerator
- * @package FroshWebP\Components\Thumbnail\Generator
  */
 class WebPGenerator implements GeneratorInterface
 {
@@ -41,17 +40,16 @@ class WebPGenerator implements GeneratorInterface
 
     /**
      * @param Shopware_Components_Config $config
-     * @param MediaServiceInterface $mediaService
-     * @param OptimizerServiceInterface $optimizerService
-     * @param WebpEncoderFactory $encoderFactory
+     * @param MediaServiceInterface      $mediaService
+     * @param OptimizerServiceInterface  $optimizerService
+     * @param WebpEncoderFactory         $encoderFactory
      */
     public function __construct(
         Shopware_Components_Config $config,
         MediaServiceInterface $mediaService,
         OptimizerServiceInterface $optimizerService,
         WebpEncoderFactory $encoderFactory
-    )
-    {
+    ) {
         $this->fixGdImageBlur = $config->get('thumbnailNoiseFilter');
         $this->mediaService = $mediaService;
         $this->optimizerService = $optimizerService;
@@ -134,8 +132,8 @@ class WebPGenerator implements GeneratorInterface
      * method for the image extension
      *
      * @param string $fileContent
-     *
      * @param $imagePath
+     *
      * @return resource
      */
     private function createImageResource($fileContent, $imagePath)
@@ -165,8 +163,8 @@ class WebPGenerator implements GeneratorInterface
      * Calculate image proportion and set the new resolution
      *
      * @param array $originalSize
-     * @param int $width
-     * @param int $height
+     * @param int   $width
+     * @param int   $height
      *
      * @return array
      */
@@ -204,9 +202,9 @@ class WebPGenerator implements GeneratorInterface
 
     /**
      * @param resource $image
-     * @param array $originalSize
-     * @param array $newSize
-     * @param bool $extension
+     * @param array    $originalSize
+     * @param array    $newSize
+     * @param bool     $extension
      *
      * @return resource
      */
@@ -244,7 +242,7 @@ class WebPGenerator implements GeneratorInterface
     /**
      * Fix #fefefe in white backgrounds
      *
-     * @param array $newSize
+     * @param array    $newSize
      * @param resource $newImage
      */
     private function fixGdImageBlur($newSize, $newImage): void
@@ -266,9 +264,9 @@ class WebPGenerator implements GeneratorInterface
     }
 
     /**
-     * @param string $destination
+     * @param string   $destination
      * @param resource $newImage
-     * @param int $quality - JPEG quality
+     * @param int      $quality     - JPEG quality
      */
     private function saveImage($destination, $newImage, $quality): void
     {

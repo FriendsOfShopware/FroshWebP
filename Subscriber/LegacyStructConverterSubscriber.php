@@ -8,7 +8,6 @@ use Shopware\Bundle\StoreFrontBundle\Struct\Thumbnail;
 
 /**
  * Class LegacyStructConverterSubscriber
- * @package FroshWebP\Subscriber
  */
 class LegacyStructConverterSubscriber implements SubscriberInterface
 {

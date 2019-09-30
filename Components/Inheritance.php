@@ -13,7 +13,6 @@ use Shopware\Models\Shop;
 
 /**
  * Class Inheritance
- * @package FroshWebP\Components
  */
 class Inheritance extends InheritanceCore
 {
@@ -32,9 +31,10 @@ class Inheritance extends InheritanceCore
 
     /**
      * Inheritance constructor.
+     *
      * @param InheritanceCore $inheritance
-     * @param Connection $connection
-     * @param MediaService $mediaService
+     * @param Connection      $connection
+     * @param MediaService    $mediaService
      */
     public function __construct(InheritanceCore $inheritance, Connection $connection, MediaService $mediaService)
     {
@@ -45,8 +45,10 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @return array|mixed
+     *
      * @throws Exception
+     *
+     * @return array|mixed
      */
     public function buildInheritances(Shop\Template $template)
     {
@@ -55,6 +57,7 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
+     *
      * @return mixed|string[]
      */
     public function getInheritancePath(Shop\Template $template)
@@ -64,10 +67,12 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @param Shop\Shop $shop
-     * @param bool $lessCompatible
-     * @return array
+     * @param Shop\Shop     $shop
+     * @param bool          $lessCompatible
+     *
      * @throws Enlight_Event_Exception
+     *
+     * @return array
      */
     public function buildConfig(Shop\Template $template, Shop\Shop $shop, $lessCompatible = true)
     {
@@ -82,8 +87,10 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @return array|mixed
+     *
      * @throws Enlight_Event_Exception
+     *
+     * @return array|mixed
      */
     public function getTemplateDirectories(Shop\Template $template)
     {
@@ -92,8 +99,10 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @return array|mixed
+     *
      * @throws Enlight_Event_Exception
+     *
+     * @return array|mixed
      */
     public function getSmartyDirectories(Shop\Template $template)
     {
@@ -102,8 +111,10 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @return mixed|string[]
+     *
      * @throws Exception
+     *
+     * @return mixed|string[]
      */
     public function getTemplateCssFiles(Shop\Template $template)
     {
@@ -112,8 +123,10 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @return mixed|string[]
+     *
      * @throws Exception
+     *
+     * @return mixed|string[]
      */
     public function getTemplateJavascriptFiles(Shop\Template $template)
     {
@@ -122,8 +135,10 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @return mixed|Theme
+     *
      * @throws Exception
+     *
+     * @return mixed|Theme
      */
     public function getTheme(Shop\Template $template)
     {
@@ -132,7 +147,8 @@ class Inheritance extends InheritanceCore
 
     /**
      * @param Shop\Template $template
-     * @param Shop\Shop $shop
+     * @param Shop\Shop     $shop
+     *
      * @return array
      */
     private function getWebpLogos(Shop\Template $template, Shop\Shop $shop): array

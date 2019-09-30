@@ -10,7 +10,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class WebPStatus
- * @package FroshWebP\Commands
  */
 class WebPStatus extends ShopwareCommand
 {
@@ -22,8 +21,9 @@ class WebPStatus extends ShopwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int|null
      */
     protected function execute(InputInterface $input, OutputInterface $output)

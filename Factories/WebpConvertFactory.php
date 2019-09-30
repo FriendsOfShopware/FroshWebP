@@ -14,9 +14,9 @@ class WebpConvertFactory
      * @param $runnableEncoder
      * @param $webpQuality
      *
-     * @return mixed
      * @throws Exception
      *
+     * @return mixed
      */
     public static function build($imgContent, $runnableEncoder, $webpQuality)
     {
