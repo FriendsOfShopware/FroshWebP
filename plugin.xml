@@ -3,12 +3,12 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
     <author>Friends of Shopware</author>
-    <compatibility minVersion="5.4.0"/>
+    <compatibility minVersion="5.6.0"/>
 
     <description lang="en">Webp Support for Shopware</description>
     <description lang="de">Webp Support für Shopware</description>
@@ -65,6 +65,15 @@
             - Shop Logos sind nun in WebP
             - Modernizr wurde aktualisiert
             - Javascript Code optimiert, Danke an @KaiSoellch
+        </changes>
+    </changelog>
+
+    <changelog version="1.1.0">
+        <changes lang="en">
+            Shopware 5.6 Compability
+        </changes>
+        <changes lang="de">
+            Shopware 5.6 Kompatiblität
         </changes>
     </changelog>
 </plugin>

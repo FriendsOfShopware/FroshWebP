@@ -31,7 +31,7 @@ class WebPStatus extends ShopwareCommand
         $io = new SymfonyStyle($input, $output);
 
         /** @var WebpEncoderFactory $encoderFactory */
-        $encoderFactory = $this->container->get('frosh_webp.services.webp_encoder_factory');
+        $encoderFactory = $this->container->get(WebpEncoderFactory::class);
         $runnableEncoders = WebpEncoderFactory::onlyRunnable($encoderFactory->getEncoders());
         if (empty($runnableEncoders)) {
             $io->error('Webp is not available');
