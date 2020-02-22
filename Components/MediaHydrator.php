@@ -205,14 +205,16 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
                 $row['maxHeight']
             );
 
-            $thumbnail->addAttribute('webp', new Attribute([
-                'thumbnail' => new Thumbnail(
-                    $this->mediaService->getUrl(str_replace($data['__media_extension'], 'webp', $row['source'])),
-                    $retina === null ? null : $this->mediaService->getUrl(str_replace($data['__media_extension'], 'webp', $row['retinaSource'])),
-                    $row['maxWidth'],
-                    $row['maxHeight']
-                ),
-            ]));
+            if (strtolower($data['__media_extension']) !== 'svg') {
+                $thumbnail->addAttribute('webp', new Attribute([
+                    'thumbnail' => new Thumbnail(
+                        $this->mediaService->getUrl(str_replace($data['__media_extension'], 'webp', $row['source'])),
+                        $retina === null ? null : $this->mediaService->getUrl(str_replace($data['__media_extension'], 'webp', $row['retinaSource'])),
+                        $row['maxWidth'],
+                        $row['maxHeight']
+                    ),
+                ]));
+            }
 
             $thumbnails[] = $thumbnail;
         }

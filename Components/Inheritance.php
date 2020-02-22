@@ -176,6 +176,11 @@ class Inheritance extends InheritanceCore
         foreach ($logos as $key => $value) {
             $value = unserialize($value);
             $ext = pathinfo($value, PATHINFO_EXTENSION);
+
+            if (strtolower($ext) === 'svg') {
+                continue;
+            }
+
             $value = str_replace('.' . $ext, '.webp', $value);
 
             $result[$key . 'Webp'] = $this->mediaService->getUrl($value);
