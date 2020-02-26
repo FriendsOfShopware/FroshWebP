@@ -32,5 +32,6 @@ This plugin generates additional webp Thumbnails and uses is in various location
 * Run command `composer require frosh/webp` and install and activate plugin with Plugin Manager 
 
 ## After Installation
+* Check if you have valid encoders with `php bin/console frosh:webp:status`
 * Download google binaries if neccessary `php bin/console frosh:webp:download-google-binaries`
 * Generate all Thumbnails new with ``php bin/console sw:thumbnail:generate -f``
