@@ -1,4 +1,16 @@
 $.overridePlugin('swImageGallery', {
+    init: function() {
+        if (Modernizr.webp) {
+            this.$el.find('.image--element[data-img-original]').each(function (el) {
+                $el = $(this);
+
+                $el.attr('data-img-original', $el.attr('data-img-webp-original'));
+            })
+        }
+
+        return this.superclass.init.apply(this, arguments);
+    },
+
     createTemplate: function () {
         var me = this,
             $el;
