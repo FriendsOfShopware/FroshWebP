@@ -54,6 +54,7 @@ class MediaUploadSubscriber implements SubscriberInterface
     {
         return [
             'Shopware\Models\Media\Media::postPersist' => 'onFileUploaded',
+            'Shopware\Models\Media\Media::postUpdate' => 'onFileUploaded',
             'Shopware\Models\Media\Media::postRemove' => 'onFileRemoved',
         ];
     }
