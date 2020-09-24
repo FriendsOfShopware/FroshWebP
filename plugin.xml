@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -74,6 +74,25 @@
         </changes>
         <changes lang="de">
             Shopware 5.6 Kompatiblität
+        </changes>
+    </changelog>
+
+    <changelog version="1.1.1">
+        <changes lang="en">
+            - Clear cache after Config change
+            - Clear cache after plugin activate, deactivate
+            - WebP Image will be re-generated after replacing image
+            - Load webp image while zooming into image
+            - Added support for category teaser, thanks to @DeverNet
+            - Ignore SVG Images
+        </changes>
+        <changes lang="de">
+            - Cache nach Config-Änderung löschen
+            - Cache nach Plugin-Aktivierung löschen, deaktivieren
+            - WebP-Bild wird nach dem Ersetzen des Bildes neu generiert
+            - Webp-Bild laden, während in das Bild gezoomt wird
+            - Unterstützung für Kategorie-Teaser hinzugefügt, dank @DeverNet
+            - SVG-Bilder ignorieren
         </changes>
     </changelog>
 </plugin>
