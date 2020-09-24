@@ -10,8 +10,8 @@
     <author>Friends of Shopware</author>
     <compatibility minVersion="5.6.0"/>
 
-    <description lang="en">Webp Support for Shopware</description>
-    <description lang="de">Webp Support für Shopware</description>
+    <description lang="en">Fügt mit einem HTML5 Picture Tag zusätzlich in der Storefront Webp Bilder hinzu. Webp ist ein neueres Bild-Format welches kleinere Bilder im Vergleich zu JPEG/PNG erstellt.</description>
+    <description lang="de">Adds with a HTML5 Picture Tag additionally in the Storefront Webp pictures. Webp is a newer image format which creates smaller images compared to JPEG/PNG.</description>
 
     <changelog version="1.0.0">
         <changes lang="en">First Release</changes>
