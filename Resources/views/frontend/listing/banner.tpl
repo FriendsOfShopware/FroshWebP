@@ -8,7 +8,7 @@
         {/if}
         <source srcset="{$sBanner.media.thumbnails[1].sourceSet}" media="(min-width: 48em)">
 
-        <img srcset="{$sBanner.media.thumbnails[0].sourceSet}" alt="{$sBanner.description|escape}" class="banner--img" />
+        <img loading="lazy" srcset="{$sBanner.media.thumbnails[0].sourceSet}" alt="{$sBanner.description|escape}" class="banner--img" />
     </picture>
 {/block}
 
@@ -22,7 +22,7 @@
 
             <source srcset="{$sBanner.media.thumbnails[1].sourceSet}" media="(min-width: 48em)">
 
-            <img srcset="{$sBanner.media.thumbnails[0].sourceSet}" alt="{$sBanner.description|escape}" class="banner--img" />
+            <img loading="lazy" srcset="{$sBanner.media.thumbnails[0].sourceSet}" alt="{$sBanner.description|escape}" class="banner--img" />
         </picture>
     </a>
 {/block}

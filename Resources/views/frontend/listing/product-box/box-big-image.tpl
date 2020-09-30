@@ -6,7 +6,7 @@
         {if isset($sArticle.image.thumbnails[1].webp)}
             <source srcset="{$sArticle.image.thumbnails[1].webp.sourceSet}" type="image/webp">
         {/if}
-        <img srcset="{$sArticle.image.thumbnails[1].sourceSet}"
+        <img loading="lazy" srcset="{$sArticle.image.thumbnails[1].sourceSet}"
              alt="{$desc}"
              title="{$desc|truncate:160}"/>
     </picture>

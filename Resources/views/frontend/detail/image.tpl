@@ -26,7 +26,7 @@
                             {if isset($sArticle.image.thumbnails[1].webp)}
                                 <source srcset="{$sArticle.image.thumbnails[1].webp.sourceSet}" type="image/webp">
                             {/if}
-                            <img srcset="{$sArticle.image.thumbnails[1].sourceSet}"
+                            <img loading="lazy" srcset="{$sArticle.image.thumbnails[1].sourceSet}"
                                  src="{$sArticle.image.thumbnails[1].source}"
                                  alt="{$alt}"
                                  itemprop="image" />
@@ -34,7 +34,7 @@
                     {/block}
                 {else}
                     {block name='frontend_detail_image_fallback'}
-                    <img src="{link file='frontend/_public/src/img/no-picture.jpg'}" alt="{$alt}" itemprop="image" />
+                    <img loading="lazy" src="{link file='frontend/_public/src/img/no-picture.jpg'}" alt="{$alt}" itemprop="image" />
                 {/block}
                 {/if}
             </span>
@@ -47,6 +47,6 @@
         {if isset($image.thumbnails[1].webp)}
             <source srcset="{$image.thumbnails[1].webp.sourceSet}" type="image/webp">
         {/if}
-        <img srcset="{$image.thumbnails[1].sourceSet}" alt="{$alt}" itemprop="image" />
+        <img loading="lazy" srcset="{$image.thumbnails[1].sourceSet}" alt="{$alt}" itemprop="image" />
     </picture>
 {/block}

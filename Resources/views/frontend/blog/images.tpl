@@ -18,7 +18,7 @@
                 {if isset($sArticle.preview.thumbnails[1].webp)}
                     <source srcset="{$sArticle.preview.thumbnails[1].webp.sourceSet}" type="image/webp">
                 {/if}
-                <img srcset="{$sArticle.preview.thumbnails[1].sourceSet}"
+                <img loading="lazy" srcset="{$sArticle.preview.thumbnails[1].sourceSet}"
                      src="{$sArticle.preview.thumbnails[1].source}"
                      class="blog--image panel has--border is--rounded"
                      alt="{$alt}"
@@ -49,7 +49,7 @@
                         {if isset($sArticleMedia.thumbnails[0].webp)}
                             <source srcset="{$sArticleMedia.thumbnails[0].webp.sourceSet}" type="image/webp">
                         {/if}
-                        <img srcset="{$sArticleMedia.thumbnails[0].sourceSet}"
+                        <img loading="lazy" srcset="{$sArticleMedia.thumbnails[0].sourceSet}"
                              class="blog--thumbnail-image"
                              alt="{s name="BlogThumbnailText" namespace="frontend/blog/detail"}{/s}: {$alt}"
                              title="{s name="BlogThumbnailText" namespace="frontend/blog/detail"}{/s}: {$alt|truncate:160}" />

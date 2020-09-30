@@ -17,10 +17,10 @@
                     {if isset($image.thumbnails[0].webp)}
                         <source srcset="{$image.thumbnails[0].webp.sourceSet}" type="image/webp">
                     {/if}
-                    <img srcset="{$image.thumbnails[0].sourceSet}" alt="{$alt}" title="{$alt|truncate:160}" />
+                    <img loading="lazy" srcset="{$image.thumbnails[0].sourceSet}" alt="{$alt}" title="{$alt|truncate:160}" />
                 {else}
                     {block name='frontend_detail_image_fallback'}
-                        <img src="{link file='frontend/_public/src/img/no-picture.jpg'}" alt="{$alt}" title="{$alt|truncate:160}" />
+                        <img loading="lazy" src="{link file='frontend/_public/src/img/no-picture.jpg'}" alt="{$alt}" title="{$alt|truncate:160}" />
                     {/block}
                 {/if}
             </span>
