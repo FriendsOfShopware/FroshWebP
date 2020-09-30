@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -93,6 +93,15 @@
             - Webp-Bild laden, während in das Bild gezoomt wird
             - Unterstützung für Kategorie-Teaser hinzugefügt, dank @DeverNet
             - SVG-Bilder ignorieren
+        </changes>
+    </changelog>
+
+    <changelog version="1.1.2">
+        <changes lang="en">
+            - Add lazy loading to img tags
+        </changes>
+        <changes lang="de">
+            - Lazy loading zu den img Tags hinzugefügt
         </changes>
     </changelog>
 </plugin>
