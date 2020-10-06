@@ -137,7 +137,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
         $data = array_merge($data, $translation);
 
         $media->setName($data['__image_description']);
-        $media->setPreview((bool) $data['__image_main']);
+        $media->setPreview($data['__image_main'] == 1);
 
         if (!empty($data['__imageAttribute_id'])) {
             $this->attributeHydrator->addAttribute($media, $data, 'imageAttribute', 'image', 'image');
