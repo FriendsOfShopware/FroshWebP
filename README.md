@@ -3,7 +3,7 @@
 [![Join the chat at https://gitter.im/FriendsOfShopware/Lobby](https://badges.gitter.im/FriendsOfShopware/Lobby.svg)](https://gitter.im/FriendsOfShopware/Lobby)
 [![Download @ Community Store](https://img.shields.io/badge/endpoint.svg?url=https://api.friendsofshopware.de/FroshWebP)](https://store.shopware.com/en/frosh50145464405f/webp-support.html)
 
-[WebP Browser-Support](http://caniuse.com/#search=webp)
+[WebP Browser-Support](https://caniuse.com/webp)
 
 This plugin generates additional webp Thumbnails and uses is in various locations like detail, listing, emotion as preferred type using html5 picture tag. Browsers which does not support webp, will get normally jpg. 
 **After installation of the Plugin regenerating all thumbnails is required.**
