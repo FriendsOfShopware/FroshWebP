@@ -330,7 +330,7 @@ class WebPGenerator implements GeneratorInterface
     private function uploadImage($destination, $tmpFilename): void
     {
         $fileHandle = fopen($tmpFilename, 'rb');
-        $this->mediaService->writeStream($destination, $fileHandle);
+        $this->mediaService->writeStream($destination, $fileHandle, ['mimetype' => 'image/webp']);
         fclose($fileHandle);
     }
 }
