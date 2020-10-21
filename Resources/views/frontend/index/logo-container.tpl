@@ -26,7 +26,7 @@
                     <source srcset="{link file=$theme.mobileLogoWebp}" type="image/webp">
                 {/if}
 
-                <img srcset="{link file=$theme.mobileLogo}" alt="{"{config name=shopName}"|escapeHtml} - {"{s name='IndexLinkDefault' namespace="frontend/index/index"}{/s}"|escape}" />
+                <img loading="lazy" srcset="{link file=$theme.mobileLogo}" alt="{"{config name=shopName}"|escapeHtml} - {"{s name='IndexLinkDefault' namespace="frontend/index/index"}{/s}"|escape}" />
             </picture>
         </a>
     </div>

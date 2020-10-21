@@ -17,11 +17,11 @@
                     {if isset($sArticle.image.thumbnails[0].webp)}
                         <source srcset="{$sArticle.image.thumbnails[0].webp.sourceSet}" alt="{$desc|strip_tags|truncate:160}" type="image/webp"/>
                     {/if}
-                        <img srcset="{$sArticle.image.thumbnails[0].sourceSet}"
+                        <img loading="lazy" srcset="{$sArticle.image.thumbnails[0].sourceSet}"
                              alt="{$desc}"
                              title="{$desc|truncate:160}" />
                     {else}
-                        <img src="{link file='frontend/_public/src/img/no-picture.jpg'}"
+                        <img loading="lazy" src="{link file='frontend/_public/src/img/no-picture.jpg'}"
                              alt="{$desc}"
                              title="{$desc|truncate:160}" />
                     {/if}

@@ -61,14 +61,14 @@
     {if isset($sArticle.image.thumbnails[0].webp)}
         <source srcset="{$sArticle.image.thumbnails[0].webp.source}" alt="{$desc|strip_tags|truncate:160}" type="image/webp"/>
     {/if}
-        <img src="{$sArticle.image.thumbnails[0].source}" alt="{$desc|strip_tags|truncate:160}" />
+        <img loading="lazy" src="{$sArticle.image.thumbnails[0].source}" alt="{$desc|strip_tags|truncate:160}" />
 
         </picture>
 
     {elseif $sArticle.image.source}
-        <img src="{$sArticle.image.webp.source}" alt="{$desc|strip_tags|truncate:160}" type="image/webp"/>
-        <img src="{$sArticle.image.source}" alt="{$desc|strip_tags|truncate:160}" />
+        <img loading="lazy" src="{$sArticle.image.webp.source}" alt="{$desc|strip_tags|truncate:160}" type="image/webp"/>
+        <img loading="lazy" src="{$sArticle.image.source}" alt="{$desc|strip_tags|truncate:160}" />
     {else}
-        <img src="{link file='frontend/_public/src/img/no-picture.jpg'}" alt="{$desc|strip_tags|truncate:160}" />
+        <img loading="lazy" src="{link file='frontend/_public/src/img/no-picture.jpg'}" alt="{$desc|strip_tags|truncate:160}" />
     {/if}
 {/block}

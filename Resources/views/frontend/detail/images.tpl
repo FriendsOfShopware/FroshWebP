@@ -5,7 +5,7 @@
         {if isset($sArticle.image.thumbnails[0].webp)}
             <source srcset="{$sArticle.image.thumbnails[0].webp.sourceSet}" type="image/webp">
         {/if}
-        <img srcset="{$sArticle.image.thumbnails[0].sourceSet}"
+        <img loading="lazy" srcset="{$sArticle.image.thumbnails[0].sourceSet}"
              alt="{s name="DetailThumbnailText" namespace="frontend/detail/index"}{/s}: {$alt}"
              title="{s name="DetailThumbnailText" namespace="frontend/detail/index"}{/s}: {$alt|truncate:160}"
              class="thumbnail--image" />
@@ -17,7 +17,7 @@
         {if isset($image.thumbnails[0].webp)}
             <source srcset="{$image.thumbnails[0].webp.sourceSet}" type="image/webp">
         {/if}
-        <img srcset="{$image.thumbnails[0].sourceSet}"
+        <img loading="lazy" srcset="{$image.thumbnails[0].sourceSet}"
              alt="{s name="DetailThumbnailText" namespace="frontend/detail/index"}{/s}: {$alt}"
              title="{s name="DetailThumbnailText" namespace="frontend/detail/index"}{/s}: {$alt|truncate:160}"
              class="thumbnail--image" />
