@@ -99,9 +99,11 @@
     <changelog version="1.1.2">
         <changes lang="en">
             - Add lazy loading to img tags
+            - Support for image elements in Digital Publishing plugin
         </changes>
         <changes lang="de">
             - Lazy loading zu den img Tags hinzugefügt
+            - Unterstützung für Bild-Elemente im Digital Publishing Plugin
         </changes>
     </changelog>
 </plugin>
