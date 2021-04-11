@@ -10,7 +10,7 @@ env:
     PLUGIN_NAME: ${{ github.event.repository.name }}
     ACCOUNT_USER: ${{ secrets.ACCOUNT_USER }}
     ACCOUNT_PASSWORD: ${{ secrets.ACCOUNT_PASSWORD }}
-    PLUGIN_UPLOADER_VERSION: 0.3.2
+    PLUGIN_UPLOADER_VERSION: 0.3.11
 
 jobs:
     validatePlugin:
