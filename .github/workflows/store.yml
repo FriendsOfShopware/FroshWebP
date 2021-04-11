@@ -67,3 +67,5 @@ jobs:
 
             -   name: StoreUpload
                 run: php frosh-plugin-upload.phar ext:upload $(pwd)/${PLUGIN_NAME}*.zip --createRelease
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
