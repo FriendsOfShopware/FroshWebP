@@ -99,9 +99,11 @@
     <changelog version="1.1.2">
         <changes lang="en">
             - Add lazy loading to img tags
+            - Retina fixes for article boxes in shopping worlds
         </changes>
         <changes lang="de">
             - Lazy loading zu den img Tags hinzugefügt
+            - Retina Korrekturen bei Artikelbilder in Einkaufswelten
         </changes>
     </changelog>
 </plugin>
