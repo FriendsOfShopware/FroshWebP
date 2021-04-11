@@ -34,12 +34,14 @@
 
         {$srcSet = ''}
         {$srcSetRetina = ''}
+        {$srcSetWebp = ''}
+        {$srcSetRetinaWebp = ''}
 
         {foreach $sArticle.image.thumbnails as $image}
-            {$srcSetWebp = "{if $srcSetWebp}{$srcSetWebp}, {/if}{$image.webp.source} {$image.maxWidth}w"}
+            {$srcSetWebp = "{if $srcSetWebp}{$srcSetWebp}, {/if}{$image.webp.source} {$image.webp.maxWidth}w"}
 
             {if $image.retinaSource}
-                {$srcSetRetinaWebp = "{if $srcSetRetinaWebp}{$srcSetRetinaWebp}, {/if}{$image.webp.retinaSource} {$image.maxWidth * 2}w"}
+                {$srcSetRetinaWebp = "{if $srcSetRetinaWebp}{$srcSetRetinaWebp}, {/if}{$image.webp.retinaSource} {$image.webp.maxWidth * 2}w"}
             {/if}
         {/foreach}
 
@@ -50,25 +52,25 @@
                 {$srcSetRetina = "{if $srcSetRetina}{$srcSetRetina}, {/if}{$image.retinaSource} {$image.maxWidth * 2}w"}
             {/if}
         {/foreach}
-
         <picture>
-            <source sizes="{$itemSize}" srcset="{$srcSetRetinaWebp}" media="(min-resolution: 192dpi)" type="image/webp"/>
+            <source sizes="{$itemSize}" srcset="{$srcSetRetinaWebp}" media="(min-resolution: 192dpi)"
+                    type="image/webp"/>
             <source sizes="{$itemSize}" srcset="{$srcSetWebp}" type="image/webp"/>
-            <source sizes="{$itemSize}" srcset="{$srcSetRetina}" media="(min-resolution: 192dpi)" />
-            <source sizes="{$itemSize}" srcset="{$srcSet}" />
+            <source sizes="{$itemSize}" srcset="{$srcSetRetina}" media="(min-resolution: 192dpi)"/>
+            <source sizes="{$itemSize}" srcset="{$srcSet}"/>
 
 
-    {if isset($sArticle.image.thumbnails[0].webp)}
-        <source srcset="{$sArticle.image.thumbnails[0].webp.source}" alt="{$desc|strip_tags|truncate:160}" type="image/webp"/>
-    {/if}
-        <img loading="lazy" src="{$sArticle.image.thumbnails[0].source}" alt="{$desc|strip_tags|truncate:160}" />
+            {if isset($sArticle.image.thumbnails[0].webp)}
+                <source srcset="{$sArticle.image.thumbnails[0].webp.source}" type="image/webp"/>
+            {/if}
+            <img loading="lazy" src="{$sArticle.image.thumbnails[0].source}" alt="{$desc|strip_tags|truncate:160}"/>
 
         </picture>
-
     {elseif $sArticle.image.source}
-        <img loading="lazy" src="{$sArticle.image.webp.source}" alt="{$desc|strip_tags|truncate:160}" type="image/webp"/>
-        <img loading="lazy" src="{$sArticle.image.source}" alt="{$desc|strip_tags|truncate:160}" />
+        <source srcset="{$sArticle.image.webp.source}" type="image/webp"/>
+        <img src="{$sArticle.image.source}" alt="{$desc|strip_tags|truncate:160}"/>
     {else}
-        <img loading="lazy" src="{link file='frontend/_public/src/img/no-picture.jpg'}" alt="{$desc|strip_tags|truncate:160}" />
+        <img loading="lazy" src="{link file='frontend/_public/src/img/no-picture.jpg'}"
+             alt="{$desc|strip_tags|truncate:160}"/>
     {/if}
 {/block}
