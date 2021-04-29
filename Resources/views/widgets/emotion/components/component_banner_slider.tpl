@@ -41,7 +41,7 @@
         {if $srcSetWebP}
             <source srcset="{$srcSetWebP}" sizes="{$itemSize}" type="image/webp">
         {/if}
-        <img loading="lazy" src="{$baseSource}"
+        <img src="{$baseSource}"
              class="banner-slider--image"
              {if $srcSet}sizes="{$itemSize}" srcset="{$srcSet}"{/if}
                 {if $banner.altText}alt="{$banner.altText|escape}" {/if}/>

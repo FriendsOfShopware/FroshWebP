@@ -47,7 +47,7 @@
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="frosh_webp.config" class="Shopware\Components\Plugin\CachedConfigReader">
+        <service id="frosh_webp.config" class="Shopware\Components\Plugin\CachedConfigReader" public="true">
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
             <argument type="string">FroshWebP</argument>
         </service>
@@ -68,7 +68,7 @@
             <tag name="console.command" command="frosh:webp:status"/>
         </service>
 
-        <service id="FroshWebP\Services\WebpEncoderFactory">
+        <service id="FroshWebP\Services\WebpEncoderFactory" public="true">
             <argument type="tagged" tag="frosh_webp.webp_encoder"/>
         </service>
 
