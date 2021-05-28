@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 use Enlight_Event_Exception;
 use Exception;
 use PDO;
-use Shopware\Bundle\MediaBundle\MediaService;
+use Shopware\Bundle\MediaBundle\MediaServiceInterface;
 use Shopware\Components\Theme;
 use Shopware\Components\Theme\Inheritance as InheritanceCore;
 use Shopware\Models\Shop;
@@ -25,18 +25,18 @@ class Inheritance extends InheritanceCore
      */
     private $connection;
     /**
-     * @var MediaService
+     * @var MediaServiceInterface
      */
     private $mediaService;
 
     /**
      * Inheritance constructor.
      *
-     * @param InheritanceCore $inheritance
-     * @param Connection      $connection
-     * @param MediaService    $mediaService
+     * @param InheritanceCore       $inheritance
+     * @param Connection            $connection
+     * @param MediaServiceInterface $mediaService
      */
-    public function __construct(InheritanceCore $inheritance, Connection $connection, MediaService $mediaService)
+    public function __construct(InheritanceCore $inheritance, Connection $connection, MediaServiceInterface $mediaService)
     {
         $this->inheritance = $inheritance;
         $this->connection = $connection;
