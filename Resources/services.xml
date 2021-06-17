@@ -7,6 +7,7 @@
         <parameter key="frosh_web_p.cached_download_dir">%kernel.root_dir%/var/libwebp</parameter>
     </parameters>
     <services>
+        <defaults public="true"/>
         <service id="thumbnail_generator_basic" class="FroshWebP\Components\Thumbnail\Generator\WebPGenerator">
             <argument type="service" id="config"/>
             <argument type="service" id="shopware_media.media_service"/>
