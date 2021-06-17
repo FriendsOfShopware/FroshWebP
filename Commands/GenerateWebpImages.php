@@ -115,6 +115,8 @@ class GenerateWebpImages extends ShopwareCommand
         );
 
         $this->buildImageStack($output, $mediaCount, $arguments);
+
+        return 0;
     }
 
     /**

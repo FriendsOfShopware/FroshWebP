@@ -20,7 +20,7 @@ Ext.define('Shopware.apps.Systeminfo.view.systeminfo.WebpEncoders', {
             ],
             proxy: {
                 type: 'ajax',
-                url: '{url action=webpencoders}',
+                url: '{url action="webpencoders"}',
                 reader: {
                     type: 'json',
                     root: 'data'
@@ -29,27 +29,24 @@ Ext.define('Shopware.apps.Systeminfo.view.systeminfo.WebpEncoders', {
             autoLoad: true
         });
 
-        console.log(this.store);
-
         this.callParent(arguments);
     },
 
     getColumns: function(){
         var me = this;
 
-        var columns = [
+        return [
             {
-                header: '{s name=file_grid/column/name}Name{/s}',
+                header: '{s name="file_grid/column/name"}Name{/s}',
                 dataIndex: 'name',
                 flex: 1
             },{
-                header: '{s name=file_grid/column/required}Available{/s}',
+                header: '{s name="file_grid/column/required"}Available{/s}',
                 dataIndex: 'available',
                 width: '65px',
                 renderer: me.renderStatus
             }
         ];
-        return columns;
     },
 
     /**
