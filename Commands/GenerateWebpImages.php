@@ -145,6 +145,8 @@ class GenerateWebpImages extends ShopwareCommand
     protected function buildImagesByStack($force, OutputInterface $output, $stackMedia, ProgressBar $progress): void
     {
         foreach ($stackMedia as $item) {
+            $this->modelManager->getConnection()->fetchAll('SELECT 1');
+
             $webpPath = str_replace($item['extension'], 'webp', $item['path']);
             if (!$force && $this->mediaService->has($webpPath)) {
                 $progress->advance();
