@@ -111,7 +111,7 @@ class GenerateWebpImages extends ShopwareCommand
             $input->getOption('ignoreCollection') ?? [],
             $stack,
             $offset,
-            (bool)$input->getOption('force')
+            ($input->getOption('force')===null||$input->getOption('force')==="true")
         );
 
         $this->buildImageStack($output, $mediaCount, $arguments);
