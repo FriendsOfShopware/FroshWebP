@@ -71,7 +71,7 @@ class GenerateWebpImages extends ShopwareCommand
             for specific folders only and with excluded folders')
             ->addOption('stack', 's', InputOption::VALUE_OPTIONAL, 'process amount per iteration')
             ->addOption('offset', 'o', InputOption::VALUE_OPTIONAL, 'process amount per iteration', 0)
-            ->addOption('force', 'f', InputOption::VALUE_OPTIONAL, 'forces recreation', false)
+            ->addOption('force', 'f', InputOption::VALUE_NONE, 'forces recreation')
             ->addOption('setCollection', 'c', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'only generates medias for specified collection. Example: `frosh:webp:generate -c 12`')
             ->addOption('ignoreCollection', 'i', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'ignores specified collection');
