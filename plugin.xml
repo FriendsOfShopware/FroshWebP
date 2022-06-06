@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.1.4</version>
+    <version>1.1.5</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -124,6 +124,19 @@
         </changes>
         <changes lang="de">
             - Shopware 5.7 Support
+        </changes>
+    </changelog>
+    
+    <changelog version="1.1.5">
+        <changes lang="en">
+            - Improved MySQL longterm connection issues
+            - Fixed frosh:webp:generate force option, thanks to Dwza
+            - Added missing picture tag, thanks to leonrustmeier
+        </changes>
+        <changes lang="de">
+            - Improved MySQL longterm connection issues
+            - Fixed frosh:webp:generate force option, thanks to Dwza
+            - Added missing picture tag, thanks to leonrustmeier
         </changes>
     </changelog>
 </plugin>
