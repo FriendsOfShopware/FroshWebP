@@ -11,6 +11,7 @@ use Shopware\Bundle\StoreFrontBundle\Struct\Attribute;
 use Shopware\Bundle\StoreFrontBundle\Struct\Media;
 use Shopware\Bundle\StoreFrontBundle\Struct\Thumbnail;
 use Shopware\Components\Thumbnail\Manager;
+use Shopware\Models\Media\Media as MediaModel;
 
 /**
  * Class MediaHydrator
@@ -109,7 +110,7 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
             $media->setHeight((int) $data['__media_height']);
         }
 
-        if ($data['__mediaSettings_create_thumbnails'] && $media->getType() === Media::TYPE_IMAGE) {
+        if ($this->shouldAddThumbnails($media->getType(), $data)) {
             $media->setThumbnails(
                 $this->getMediaThumbnails($data)
             );
@@ -245,5 +246,18 @@ class MediaHydrator extends \Shopware\Bundle\StoreFrontBundle\Gateway\DBAL\Hydra
         $data['__media_height'] = $height;
 
         return $data;
+    }
+
+    private function shouldAddThumbnails(string $type, array $data)
+    {
+        if (!$data['__mediaSettings_create_thumbnails']) {
+            return false;
+        }
+
+        if ($type !== MediaModel::TYPE_VECTOR && $type !== MediaModel::TYPE_IMAGE) {
+            return false;
+        }
+
+        return true;
     }
 }
