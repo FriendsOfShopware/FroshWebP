@@ -127,12 +127,20 @@ class GenerateWebpImages extends ShopwareCommand
     protected function buildImageStack(OutputInterface $output, $mediaCount, Arguments $arguments): void
     {
         for ($i = $arguments->getOffset(); $i <= $mediaCount + $arguments->getStack(); $i += $arguments->getStack()) {
-            $stackMedia = $this->webpRepository->findByOffset($arguments->getStack(), $i,
-                $arguments->getCollectionsToUse(), $arguments->getCollectionsToIgnore());
+            $stackMedia = $this->webpRepository->findByOffset(
+                $arguments->getStack(),
+                $i,
+                $arguments->getCollectionsToUse(), $arguments->getCollectionsToIgnore()
+            );
+
             $progress = new ProgressBar($output, count($stackMedia));
             $progress->start();
+
             $this->buildImagesByStack($arguments->isForce(), $output, $stackMedia, $progress);
+
             $progress->finish();
+
+            $output->writeln('');
         }
     }
 
@@ -162,6 +170,7 @@ class GenerateWebpImages extends ShopwareCommand
                 imagedestroy($im);
                 $this->mediaService->write($webpPath, $newImgContent);
             } catch (Throwable $e) {
+                $output->writeln('');
                 $output->writeln($item['path'] . ' => ' . $e->getMessage());
             }
             $progress->advance();
