@@ -1,5 +1,5 @@
 $.subscribe('plugin/swLastSeenProducts/onCreateProductImage', function (event, plugin, element, data) {
-    if (!froshWebPSupported()) {
+    if (!document.documentElement.classList.contains('has--webp')) {
         return;
     }
 

@@ -9,3 +9,7 @@ function froshWebPSupported()
 
     return false;
 }
+
+if (froshWebPSupported()) {
+    document.documentElement.classList.add('has--webp');
+}

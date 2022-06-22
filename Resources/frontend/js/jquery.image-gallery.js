@@ -1,6 +1,6 @@
 $.overridePlugin('swImageGallery', {
     init: function() {
-        if (!froshWebPSupported()) {
+        if (!document.documentElement.classList.contains('has--webp')) {
             this.$el.find('.image--element[data-img-original]').each(function (el) {
                 $el = $(this);
 
@@ -15,7 +15,7 @@ $.overridePlugin('swImageGallery', {
         var me = this,
             $el;
 
-        if (!froshWebPSupported()) {
+        if (!document.documentElement.classList.contains('has--webp')) {
             me._$imageContainerClone.find('span[data-img-original]').each(function (i, el) {
                 $el = $(el);
 

@@ -1,5 +1,5 @@
 $.subscribe('plugin/swAjaxProductNavigation/onProductNavigationFinished', function (event, plugin, response) {
-    if (!froshWebPSupported()) {
+    if (!document.documentElement.classList.contains('has--webp')) {
         return;
     }
 
