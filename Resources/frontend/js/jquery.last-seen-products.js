@@ -1,5 +1,5 @@
 $.subscribe('plugin/swLastSeenProducts/onCreateProductImage', function (event, plugin, element, data) {
-    if (!Modernizr.webp) {
+    if (!froshWebPSupported()) {
         return;
     }
 

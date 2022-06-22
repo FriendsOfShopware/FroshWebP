@@ -32,10 +32,6 @@
             <tag name="shopware.event_subscriber"/>
         </service>
 
-        <service id="FroshWebP\Subscriber\ModernizrSubscriber">
-            <tag name="shopware.event_subscriber"/>
-        </service>
-
         <service id="FroshWebP\Subscriber\SysteminfoSubscriber">
             <argument type="service" id="FroshWebP\Services\WebpEncoderFactory"/>
             <tag name="shopware.event_subscriber"/>

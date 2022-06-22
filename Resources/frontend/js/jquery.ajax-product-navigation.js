@@ -1,5 +1,5 @@
 $.subscribe('plugin/swAjaxProductNavigation/onProductNavigationFinished', function (event, plugin, response) {
-    if (!Modernizr.webp) {
+    if (!froshWebPSupported()) {
         return;
     }
 
