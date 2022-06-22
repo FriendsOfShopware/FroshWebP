@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -137,6 +137,19 @@
             - Improved MySQL longterm connection issues
             - Fixed frosh:webp:generate force option, thanks to Dwza
             - Added missing picture tag, thanks to leonrustmeier
+        </changes>
+    </changelog>
+
+    <changelog version="1.1.6">
+        <changes lang="en">
+            - Added webp template for manufacturer slider
+            - Removed Modernizr and replaced with more lightweight variant
+            - Fixed SVG images
+        </changes>
+        <changes lang="de">
+            - Added webp template for manufacturer slider
+            - Removed Modernizr and replaced with more lightweight variant
+            - Fixed SVG images
         </changes>
     </changelog>
 </plugin>
