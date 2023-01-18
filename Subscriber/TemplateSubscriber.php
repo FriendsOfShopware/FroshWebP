@@ -68,7 +68,9 @@ class TemplateSubscriber implements SubscriberInterface
 
         return array_filter(
             $args->getReturn(),
-            fn (string $item) => stripos($item, 'FroshWebP/Resources/frontend/js') === false
+            function(string $item) {
+                return stripos($item, 'FroshWebP/Resources/frontend/js') === false;
+            }
         );
     }
 }
