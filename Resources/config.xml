@@ -16,8 +16,8 @@
             <label lang="de">WebP JavaScript in Storefront laden</label>
             <label lang="en">Load WebP Javascript in storefront</label>
             <value>true</value>
-            <description lang="de">Diese Option erweitert die Templates und Javascript. Media &amp; Templatevariablen werden auch ohne diese Option erweitert.</description>
-            <description lang="en">This extends the templates and javascript for the frontend. Media and template variables will be extended without this option.</description>
+            <description lang="de">Diese Option erweitert das Javascript. Media &amp; Templatevariablen werden auch ohne diese Option erweitert. Nachdem die Konfiguration geändert wurde, muss das Theme neu kompiliert werden.</description>
+            <description lang="en">This extends the javascript for the frontend. Media and template variables will be extended without this option. After changing this configuration the theme has to be recompiled to apply the changes.</description>
         </element>
 
         <element type="number">
