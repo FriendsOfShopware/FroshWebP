@@ -36,6 +36,7 @@ class TemplateSubscriber implements SubscriberInterface
         return [
             'Enlight_Controller_Action_PreDispatch_Widgets' => 'addTemplateDir',
             'Enlight_Controller_Action_PreDispatch_Frontend' => 'addTemplateDir',
+            'Theme_Compiler_Collect_Javascript_Files_FilterResult' => 'onFilterJavascriptFiles',
         ];
     }
 
@@ -54,5 +55,20 @@ class TemplateSubscriber implements SubscriberInterface
         }
 
         $controller->View()->addTemplateDir(dirname(__DIR__) . '/Resources/views');
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function onFilterJavascriptFiles(Enlight_Event_EventArgs $args): ?array
+    {
+        if (!empty($this->pluginConfig['enableWebPJavascriptInFrontend'])) {
+            return null;
+        }
+
+        return array_filter(
+            $args->getReturn(),
+            fn (string $item) => stripos($item, 'FroshWebP/Resources/frontend/js') === false
+        );
     }
 }
