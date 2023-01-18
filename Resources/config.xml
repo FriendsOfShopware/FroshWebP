@@ -7,7 +7,7 @@
             <label lang="de">WebP in Frontend anzeigen</label>
             <label lang="en">Show WebP in frontend</label>
             <value>false</value>
-            <description lang="de">Diese Option erweitert die Templates. Media &amp; Templatevariablen werden auch ohne dies Option erweitert.</description>
+            <description lang="de">Diese Option erweitert die Templates. Media &amp; Templatevariablen werden auch ohne diese Option erweitert.</description>
             <description lang="en">This extends the templates for the frontend. Media and template variables will be extended without this option.</description>
         </element>
 
