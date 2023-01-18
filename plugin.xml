@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.1.6</version>
+    <version>1.1.7</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -150,6 +150,15 @@
             - Added webp template for manufacturer slider
             - Removed Modernizr and replaced with more lightweight variant
             - Fixed SVG images
+        </changes>
+    </changelog>
+
+    <changelog version="1.1.7">
+        <changes lang="en">
+            - Added option to disable Javascript embedding in Frontend
+        </changes>
+        <changes lang="de">
+            - Added option to disable Javascript embedding in Frontend
         </changes>
     </changelog>
 </plugin>
