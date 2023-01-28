@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label lang="de">Webp Unterstützung</label>
     <label lang="en">Webp Support</label>
-    <version>1.1.7</version>
+    <version>1.1.8</version>
     <copyright>Friends of Shopware</copyright>
     <license>MIT</license>
     <link>https://friendsofshopware.github.io/</link>
@@ -126,7 +126,7 @@
             - Shopware 5.7 Support
         </changes>
     </changelog>
-    
+
     <changelog version="1.1.5">
         <changes lang="en">
             - Improved MySQL longterm connection issues
@@ -159,6 +159,15 @@
         </changes>
         <changes lang="de">
             - Added option to disable Javascript embedding in Frontend
+        </changes>
+    </changelog>
+
+    <changelog version="1.1.7">
+        <changes lang="en">
+            - Added webp thumbnails to media manager linking
+        </changes>
+        <changes lang="de">
+            - Added webp thumbnails to media manager linking
         </changes>
     </changelog>
 </plugin>
