@@ -162,7 +162,7 @@
         </changes>
     </changelog>
 
-    <changelog version="1.1.7">
+    <changelog version="1.1.8">
         <changes lang="en">
             - Added webp thumbnails to media manager linking
         </changes>
