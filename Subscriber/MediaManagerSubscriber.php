@@ -7,7 +7,10 @@ use Shopware\Bundle\MediaBundle\MediaServiceInterface;
 
 class MediaManagerSubscriber implements SubscriberInterface
 {
-    private MediaServiceInterface $mediaService;
+    /**
+     * @var MediaServiceInterface
+     */
+    private $mediaService;
 
     public function __construct(MediaServiceInterface $mediaService)
     {
